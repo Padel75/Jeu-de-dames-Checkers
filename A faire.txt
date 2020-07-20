@@ -1,1 +1,3 @@
-Ajouter une zone de message a coté damier, mais dans la meme fenetre
+Ajouter une zone de message à coté du damier, mais dans la meme fenetre.
+
+Il y a deja une gestion des messages d'erreurs dans interface_dame.

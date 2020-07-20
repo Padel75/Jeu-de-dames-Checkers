@@ -1,4 +1,4 @@
-# Auteurs: À compléter
+# Auteurs: Ariane Fiset et Pascal de Le Rue
 
 from tkinter import Tk, Label, NSEW
 from canvas_damier import CanvasDamier
