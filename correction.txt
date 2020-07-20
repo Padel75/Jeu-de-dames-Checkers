@@ -1,0 +1,70 @@
+
+Noms :
+Numéros de dossier (NI) :
+
+Correction
+==========
+
+Fonctionnalités obligatoires
+----------------------------
+- Les pièces peuvent être déplacées sur le damier
+- Les déplacements invalides ne sont pas acceptés
+- On peut choisir une nouvelle pièce source après un mouvement invalide
+- Si une prise est possible, elle est obligatoire 
+- Les prises multiples sont gérées correctement
+- Le tour des joueurs est alterné correctement
+- On peut créer une nouvelle partie
+- On peut quitter le jeu
+- Une rétroaction est donnée à l'utilisateur (messages)
+- Affiche la couleur du joueur qui doit faire un déplacement (tour courant) 
+
+Commentaires:
+
+Total: /40
+
+Fonctionnalités facultatives
+----------------------------
+
+IMPORTANT:
+Indiquez ici la liste des fonctionnalités (avec leur numéro et nom) que vous avez implémentées. 
+
+- # 00 : Nom de la fonctionnalité
+- # 00 : Nom de la fonctionnalité
+- # 00 : Nom de la fonctionnalité
+- etc.
+
+Commentaires:
+
+Total: /30
+
+
+Qualité du code
+---------------
+- Respect des normes de programmation
+- Documentation du programme
+
+Commentaires:
+
+Total: /10
+
+
+Rapport écrit (fichier rapport.pdf)
+-----------------------------------
+- Description et justification des choix de modélisations
+- Description et justification des modifications au code fourni 
+- Qualité de la langue 
+
+Commentaires:
+
+Total: /20
+
+
+Pénalités
+---------
+
+
+Commentaires du correcteur
+--------------------------
+
+
+Total : /100
