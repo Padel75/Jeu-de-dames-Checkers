@@ -1,0 +1,1 @@
+Ajouter une zone de message a coté damier, mais dans la meme fenetre
