@@ -44,6 +44,11 @@ class FenetrePartie(Tk):
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
+        # Pour se rappeler si une pièce est sélectionnée:
+        self.bool_piece_selectionnee = False
+        self.piece_selectionnee = None
+        self.position_selectionnee = None
+
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier.
 
@@ -51,33 +56,44 @@ class FenetrePartie(Tk):
             event (tkinter.Event): Objet décrivant l'évènement qui a causé l'appel de la méthode.
 
         """
+        if self.bool_piece_selectionnee:
 
-        # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
-        ligne = event.y // self.canvas_damier.n_pixels_par_case
-        colonne = event.x // self.canvas_damier.n_pixels_par_case
-        position = Position(ligne, colonne)
+            # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
+            ligne_deplacement = event.y//self.canvas_damier.n_pixels_par_case
+            colonne_deplacement = event.x//self.canvas_damier.n_pixels_par_case
+            position_deplacement = Position(ligne_deplacement, colonne_deplacement)
 
-        # On récupère l'information sur la pièce à l'endroit choisi.
-        piece = self.partie.damier.recuperer_piece_a_position(position)
+            # On déplace la pièce à la position selectionnée.
+            self.partie.damier.cases[position_deplacement] = self.piece_selectionnee
+            del self.partie.damier.cases[self.position_selectionnee]
+            self.bool_piece_selectionnee = False
+            self.piece_selectionnee = None
+            self.position_selectionnee = None
 
-        if piece is None:
-            self.messages['foreground'] = 'red'
-            self.messages['text'] = 'Erreur: Aucune pièce à cet endroit.'
-        else:
-            self.messages['foreground'] = 'black'
-            self.messages['text'] = 'Pièce sélectionnée à la position {}.'.format( position)
+            # On affiche le damier mis a jour.
+            self.canvas_damier.actualiser()
 
-        # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
-        ligne_deplacement = event.y//self.canvas_damier.n_pixels_par_case
-        colonne_deplacement = event.x//self.canvas_damier.n_pixels_par_case
-        position_deplacement = Position(ligne_deplacement, colonne_deplacement)
+        if not self.bool_piece_selectionnee:
+            # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
+            ligne = event.y // self.canvas_damier.n_pixels_par_case
+            colonne = event.x // self.canvas_damier.n_pixels_par_case
+            self.position_selectionnee = Position(ligne, colonne)
 
-        # On déplace la pièce à la position selectionnée.
-        self.partie.damier.cases[position_deplacement] = piece
-        del self.partie.damier.cases[position]
+            # On récupère l'information sur la pièce à l'endroit choisi.
+            self.piece_selectionnee = self.partie.damier.recuperer_piece_a_position(self.position_selectionnee)
 
-        # On affiche le damier mis a jour.
-        self.canvas_damier.actualiser()
+            if self.piece_selectionnee is None:
+                self.messages['foreground'] = 'red'
+                self.messages['text'] = 'Erreur: Aucune pièce à cet endroit.'
+            else:
+                self.messages['foreground'] = 'black'
+                self.messages['text'] = 'Pièce sélectionnée à la position {}.'.format(self.position_selectionnee)
+                self.bool_piece_selectionnee = True
+
+            # On affiche le damier mis a jour.
+            self.canvas_damier.actualiser()
+
+
 
 
         # TODO: À continuer....
