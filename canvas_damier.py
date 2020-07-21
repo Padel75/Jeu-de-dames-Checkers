@@ -97,7 +97,7 @@ class CanvasDamier(Canvas):
         self.actualiser()
 
     def actualiser(self):
-        """Méthode qui redésinne le canvas (mets à jour l'affichage du damier).
+        """Méthode qui redessine le canvas (mets à jour l'affichage du damier).
         """
         # On supprime les anciennes cases et on ajoute les nouvelles.
         self.delete('case')

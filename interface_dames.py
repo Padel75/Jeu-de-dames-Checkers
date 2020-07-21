@@ -67,6 +67,19 @@ class FenetrePartie(Tk):
             self.messages['foreground'] = 'black'
             self.messages['text'] = 'Pièce sélectionnée à la position {}.'.format( position)
 
+        # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
+        ligne_deplacement = event.y//self.canvas_damier.n_pixels_par_case
+        colonne_deplacement = event.x//self.canvas_damier.n_pixels_par_case
+        position_deplacement = Position(ligne_deplacement, colonne_deplacement)
+
+        # On déplace la pièce à la position selectionnée.
+        self.partie.damier.cases[position_deplacement] = piece
+        del self.partie.damier.cases[position]
+
+        # On affiche le damier mis a jour.
+        self.canvas_damier.actualiser()
+
+
         # TODO: À continuer....
 
 
