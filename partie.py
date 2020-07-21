@@ -27,6 +27,9 @@ class Partie:
 
         """
         self.damier = Damier()
+
+        self.couple_de_position = None
+
         self.couleur_joueur_courant = "blanc"
         self.doit_prendre = False
         self.position_source_selectionnee = None
@@ -175,7 +178,7 @@ class Partie:
             print("")
 
         # Demander les positions
-        position_source, position_cible = self.demander_positions_deplacement()
+        position_source, position_cible = self.couple_de_position
 
         # Effectuer le déplacement (à l'aide de la méthode du damier appropriée)
         resultat_deplacement = self.damier.deplacer(position_source, position_cible)

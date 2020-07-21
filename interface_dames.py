@@ -49,6 +49,9 @@ class FenetrePartie(Tk):
         self.piece_selectionnee = None
         self.position_selectionnee = None
 
+        # Variable de déplacement
+        self.position_cible_graphique = None
+
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier.
 
@@ -61,23 +64,29 @@ class FenetrePartie(Tk):
             # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
             ligne_deplacement = event.y//self.canvas_damier.n_pixels_par_case
             colonne_deplacement = event.x//self.canvas_damier.n_pixels_par_case
-            position_deplacement = Position(ligne_deplacement, colonne_deplacement)
+            if self.partie.position_cible_valide(Position(ligne_deplacement, colonne_deplacement))[0] == True:
+                self.position_cible_graphique = Position(ligne_deplacement, colonne_deplacement)
+            else:
+                print(self.partie.position_cible_valide(Position(ligne_deplacement, colonne_deplacement))[1])
 
-            # On déplace la pièce à la position selectionnée.
-            self.partie.damier.cases[position_deplacement] = self.piece_selectionnee
-            del self.partie.damier.cases[self.position_selectionnee]
-            self.bool_piece_selectionnee = False
-            self.piece_selectionnee = None
-            self.position_selectionnee = None
+            self.partie.couple_de_position = self.position_selectionnee, self.position_cible_graphique
+            self.partie.tour()
 
             # On affiche le damier mis a jour.
             self.canvas_damier.actualiser()
+
+            self.bool_piece_selectionnee = False
+            self.piece_selectionnee = None
+            self.position_selectionnee = None
 
         if not self.bool_piece_selectionnee:
             # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
             ligne = event.y // self.canvas_damier.n_pixels_par_case
             colonne = event.x // self.canvas_damier.n_pixels_par_case
-            self.position_selectionnee = Position(ligne, colonne)
+            if self.partie.position_cible_valide(Position(ligne, colonne))[0] == True:
+                self.position_selectionnee = Position(ligne, colonne)
+            else:
+                print(self.partie.position_cible_valide(Position(ligne, colonne))[1])
 
             # On récupère l'information sur la pièce à l'endroit choisi.
             self.piece_selectionnee = self.partie.damier.recuperer_piece_a_position(self.position_selectionnee)
@@ -93,8 +102,7 @@ class FenetrePartie(Tk):
             # On affiche le damier mis a jour.
             self.canvas_damier.actualiser()
 
-
-
+            self.partie.tour()
 
         # TODO: À continuer....
 
