@@ -81,8 +81,8 @@ class FenetrePartie(Tk):
 
         if not self.bool_piece_selectionnee:
             # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
-            ligne = event.y // self.canvas_damier.n_pixels_par_case
-            colonne = event.x // self.canvas_damier.n_pixels_par_case
+            ligne = int(event.y // self.canvas_damier.n_pixels_par_case)
+            colonne = int(event.x // self.canvas_damier.n_pixels_par_case)
             if self.partie.position_cible_valide(Position(ligne, colonne))[0] == True:
                 self.position_selectionnee = Position(ligne, colonne)
             else:
