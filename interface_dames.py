@@ -83,8 +83,9 @@ class FenetrePartie(Tk):
             # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
             ligne = int(event.y // self.canvas_damier.n_pixels_par_case)
             colonne = int(event.x // self.canvas_damier.n_pixels_par_case)
-            if self.partie.position_cible_valide(Position(ligne, colonne))[0] == True:
+            if self.partie.position_source_valide(Position(ligne, colonne))[0]:
                 self.position_selectionnee = Position(ligne, colonne)
+                self.partie.position_source_selectionnee = self.position_selectionnee
             else:
                 print(self.partie.position_cible_valide(Position(ligne, colonne))[1])
 
@@ -101,8 +102,6 @@ class FenetrePartie(Tk):
 
             # On affiche le damier mis a jour.
             self.canvas_damier.actualiser()
-
-            self.partie.tour()
 
         # TODO: À continuer....
 
