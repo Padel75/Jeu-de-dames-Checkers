@@ -166,17 +166,7 @@ class Partie:
         if self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
             self.doit_prendre = True
 
-        # Affiche l'état du jeu
-        print(self.damier)
-        print("")
-        print("Tour du joueur", self.couleur_joueur_courant, end=".")
-        if self.doit_prendre:
-            if self.position_source_forcee is None:
-                print(" Doit prendre une pièce.")
-            else:
-                print(" Doit prendre avec la pièce en position {}.".format(self.position_source_forcee))
-        else:
-            print("")
+
 
         # Demander les positions
         position_source, position_cible = self.couple_de_position
@@ -199,6 +189,18 @@ class Partie:
             self.couleur_joueur_courant = "noir"
         else:
             self.couleur_joueur_courant = "blanc"
+
+        # Affiche l'état du jeu
+        print(self.damier)
+        print("")
+        print("Tour du joueur", self.couleur_joueur_courant, end=".")
+        if self.doit_prendre:
+            if self.position_source_forcee is None:
+                print(" Doit prendre une pièce.")
+            else:
+                print(" Doit prendre avec la pièce en position {}.".format(self.position_source_forcee))
+        else:
+            print("")
 
 
     def jouer(self):

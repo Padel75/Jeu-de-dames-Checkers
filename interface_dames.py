@@ -51,10 +51,12 @@ class FenetrePartie(Tk):
 
         # Variable de déplacement
         self.position_cible_graphique = None
-
-        # Création du bouton 'quitter'
+        """
+        # Création du bouton 'Nouvelle partie'
         self.bouton_Nouvelle_partie = Button(self, text="Nouvelle partie", command=self.callback, padx=10, pady=10)
         self.bouton_Nouvelle_partie.grid(padx=10, pady=10)
+        """
+        # Création du bouton 'quitter'
         self.bouton_Quitter = Button(self, text="Quitter", command=self.quit, padx=10, pady=10)
         self.bouton_Quitter.grid(padx=10, pady=10)
 
@@ -80,10 +82,11 @@ class FenetrePartie(Tk):
             # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
             ligne_deplacement = event.y//self.canvas_damier.n_pixels_par_case
             colonne_deplacement = event.x//self.canvas_damier.n_pixels_par_case
-            if self.partie.position_cible_valide(Position(ligne_deplacement, colonne_deplacement))[0] == True:
+            if self.partie.position_cible_valide(Position(ligne_deplacement, colonne_deplacement))[0]:
                 self.position_cible_graphique = Position(ligne_deplacement, colonne_deplacement)
             else:
-                print(self.partie.position_cible_valide(Position(ligne_deplacement, colonne_deplacement))[1])
+                self.messages['foreground'] = 'black'
+                self.messages['text'] = self.partie.position_cible_valide(Position(ligne_deplacement, colonne_deplacement))[1]
 
             self.partie.couple_de_position = self.position_selectionnee, self.position_cible_graphique
             self.partie.tour()
@@ -103,7 +106,9 @@ class FenetrePartie(Tk):
                 self.position_selectionnee = Position(ligne, colonne)
                 self.partie.position_source_selectionnee = self.position_selectionnee
             else:
-                print(self.partie.position_cible_valide(Position(ligne, colonne))[1])
+                print(self.partie.position_source_valide(Position(ligne, colonne))[1])
+                self.messages['foreground'] = 'black'
+                self.messages['text'] = self.partie.position_source_valide(Position(ligne, colonne))[1]
 
             # On récupère l'information sur la pièce à l'endroit choisi.
             self.piece_selectionnee = self.partie.damier.recuperer_piece_a_position(self.position_selectionnee)
