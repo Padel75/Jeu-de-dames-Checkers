@@ -52,6 +52,9 @@ class FenetrePartie(Tk):
         # Variable de déplacement
         self.position_cible_graphique = None
 
+        self.bouton = Button(self, text="Quitter", command=self.quit)
+        self.bouton.grid()
+
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier.
 
@@ -109,6 +112,4 @@ class FenetrePartie(Tk):
 if __name__ == '__main__':
     # Point d'entrée principal du TP4.
     fenetre = FenetrePartie()
-    bouton = Button(fenetre, text="Quitter", command=fenetre.quit)
-    bouton.grid()
     fenetre.mainloop()
