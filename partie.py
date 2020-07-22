@@ -201,6 +201,8 @@ class Partie:
         else:
             print("")
 
+        self.position_source_selectionnee = None
+
 
     def jouer(self):
         """Démarre une partie. Tant que le joueur courant a des déplacements possibles (utilisez les méthodes

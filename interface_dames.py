@@ -94,11 +94,13 @@ class FenetrePartie(Tk):
             # On affiche le damier mis a jour.
             self.canvas_damier.actualiser()
 
-        # Réinitialisation des attributs
-        self.bool_piece_selectionnee = False
-        self.piece_selectionnee = None
-        self.position_selectionnee = None
-        self.partie.position_source_selectionnee = None
+            # Réinitialisation des attributs
+            self.bool_piece_selectionnee = False
+            self.piece_selectionnee = None
+            self.position_selectionnee = None
+            self.partie.position_source_selectionnee = None
+            return
+
 
         if not self.bool_piece_selectionnee:
             # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
@@ -107,21 +109,22 @@ class FenetrePartie(Tk):
             if self.partie.position_source_valide(Position(ligne, colonne))[0]:
                 self.position_selectionnee = Position(ligne, colonne)
                 self.partie.position_source_selectionnee = self.position_selectionnee
+
+            # On récupère l'information sur la pièce à l'endroit choisi.
+                self.piece_selectionnee = self.partie.damier.recuperer_piece_a_position(self.position_selectionnee)
+
+                if self.piece_selectionnee is None:
+                    self.messages['foreground'] = 'red'
+                    self.messages['text'] = 'Erreur: Aucune pièce à cet endroit.'
+                else:
+                    self.messages['foreground'] = 'black'
+                    self.messages['text'] = 'Pièce sélectionnée à la position {}.'.format(self.position_selectionnee)
+                    self.bool_piece_selectionnee = True
+
             else:
                 print(self.partie.position_source_valide(Position(ligne, colonne))[1])
                 self.messages['foreground'] = 'black'
                 self.messages['text'] = self.partie.position_source_valide(Position(ligne, colonne))[1]
-
-            # On récupère l'information sur la pièce à l'endroit choisi.
-            self.piece_selectionnee = self.partie.damier.recuperer_piece_a_position(self.position_selectionnee)
-
-            if self.piece_selectionnee is None:
-                self.messages['foreground'] = 'red'
-                self.messages['text'] = 'Erreur: Aucune pièce à cet endroit.'
-            else:
-                self.messages['foreground'] = 'black'
-                self.messages['text'] = 'Pièce sélectionnée à la position {}.'.format(self.position_selectionnee)
-                self.bool_piece_selectionnee = True
 
             # On affiche le damier mis a jour.
             self.canvas_damier.actualiser()
