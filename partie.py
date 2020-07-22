@@ -167,7 +167,6 @@ class Partie:
             self.doit_prendre = True
 
 
-
         # Demander les positions
         position_source, position_cible = self.couple_de_position
 

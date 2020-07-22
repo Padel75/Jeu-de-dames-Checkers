@@ -94,9 +94,11 @@ class FenetrePartie(Tk):
             # On affiche le damier mis a jour.
             self.canvas_damier.actualiser()
 
-            self.bool_piece_selectionnee = False
-            self.piece_selectionnee = None
-            self.position_selectionnee = None
+        # Réinitialisation des attributs
+        self.bool_piece_selectionnee = False
+        self.piece_selectionnee = None
+        self.position_selectionnee = None
+        self.partie.position_source_selectionnee = None
 
         if not self.bool_piece_selectionnee:
             # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
