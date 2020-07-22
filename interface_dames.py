@@ -53,8 +53,11 @@ class FenetrePartie(Tk):
         self.position_cible_graphique = None
 
         # Création du bouton 'quitter'
-        self.bouton = Button(self, text="Quitter", command=self.quit, padx=10, pady=10)
-        self.bouton.grid(padx=20, pady=20)
+        self.bouton_Nouvelle_partie = Button(self, text="Nouvelle partie", command=self.callback, padx=10, pady=10)
+        self.bouton_Nouvelle_partie.grid(padx=10, pady=10)
+        self.bouton_Quitter = Button(self, text="Quitter", command=self.quit, padx=10, pady=10)
+        self.bouton_Quitter.grid(padx=10, pady=10)
+
         """
         # Création de l'étiquette de couleur du joueur courant
         if self.partie.couleur_joueur_courant == 'noir':
