@@ -37,6 +37,11 @@ class FenetrePartie(Tk):
         self.messages = Label(self)
         self.messages.grid()
 
+        # Ajout d'une étiquette de couleur du tour du joueur
+        self.couleur_joueur = Label(self)
+        self.couleur_joueur.grid()
+        self.couleur_joueur['text'] = 'Tour du joueur {}'.format('blanc')
+
         # Nom de la fenêtre («title» est une méthode de la classe de base «Tk»)
         self.title("Jeu de dames")
 
@@ -51,11 +56,11 @@ class FenetrePartie(Tk):
 
         # Variable de déplacement
         self.position_cible_graphique = None
-        """
+
         # Création du bouton 'Nouvelle partie'
-        self.bouton_Nouvelle_partie = Button(self, text="Nouvelle partie", command=self.callback, padx=10, pady=10)
+        self.bouton_Nouvelle_partie = Button(self, text="Nouvelle partie", command=self.quit, padx=10, pady=10)
         self.bouton_Nouvelle_partie.grid(padx=10, pady=10)
-        """
+
         # Création du bouton 'quitter'
         self.bouton_Quitter = Button(self, text="Quitter", command=self.quit, padx=10, pady=10)
         self.bouton_Quitter.grid(padx=10, pady=10)
@@ -94,6 +99,9 @@ class FenetrePartie(Tk):
             # On affiche le damier mis a jour.
             self.canvas_damier.actualiser()
 
+            couleur = str(self.partie.couleur_joueur_courant)
+            self.couleur_joueur['text'] = 'Tour du joueur {}'.format(couleur)
+
             # Réinitialisation des attributs
             self.bool_piece_selectionnee = False
             self.piece_selectionnee = None
@@ -129,7 +137,11 @@ class FenetrePartie(Tk):
             # On affiche le damier mis a jour.
             self.canvas_damier.actualiser()
 
-        # TODO: À continuer....
+
+
+
+
+
 
 
 if __name__ == '__main__':
