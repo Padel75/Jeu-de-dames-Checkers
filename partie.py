@@ -2,6 +2,7 @@
 
 from damier import Damier
 from position import Position
+from canvas_damier import *
 
 
 class Partie:
