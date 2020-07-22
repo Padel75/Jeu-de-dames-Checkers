@@ -1,6 +1,6 @@
 # Auteurs: Ariane Fiset et Pascal de Le Rue
 
-from tkinter import Tk, Label, NSEW, Button
+from tkinter import Tk, Label, NSEW, Button, Canvas
 from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
@@ -55,6 +55,15 @@ class FenetrePartie(Tk):
         # Création du bouton 'quitter'
         self.bouton = Button(self, text="Quitter", command=self.quit, padx=10, pady=10)
         self.bouton.grid(padx=20, pady=20)
+        """
+        # Création de l'étiquette de couleur du joueur courant
+        if self.partie.couleur_joueur_courant == 'noir':
+            color = 'black'
+        else:
+            color = 'white'
+        coul_joueur = Canvas(self, width=20, height=20, bg=color)
+        coul_joueur.grid(padx=10, pady=10, sticky=NSEW)
+        """
 
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier.
