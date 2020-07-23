@@ -60,22 +60,12 @@ class FenetrePartie(Tk):
 
         # Création du bouton 'Nouvelle partie'
         self.nouvelle_partie = False
-        self.bouton_Nouvelle_partie = Button(self, text="Nouvelle partie", command=self.replace_window(), padx=10, pady=10)
+        self.bouton_Nouvelle_partie = Button(self, text="Nouvelle partie", command=self.fct_nouvelle_partie(), padx=10, pady=10)
         self.bouton_Nouvelle_partie.grid(padx=10, pady=10)
 
         # Création du bouton 'quitter'
         self.bouton_Quitter = Button(self, text="Quitter", command=self.quit, padx=10, pady=10)
         self.bouton_Quitter.grid(padx=10, pady=10)
-
-        """
-        # Création de l'étiquette de couleur du joueur courant
-        if self.partie.couleur_joueur_courant == 'noir':
-            color = 'black'
-        else:
-            color = 'white'
-        coul_joueur = Canvas(self, width=20, height=20, bg=color)
-        coul_joueur.grid(padx=10, pady=10, sticky=NSEW)
-        """
 
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier.
@@ -117,8 +107,8 @@ class FenetrePartie(Tk):
         if not self.bool_piece_selectionnee:
 
             # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
-            ligne = int(event.y // self.canvas_damier.n_pixels_par_case)
-            colonne = int(event.x // self.canvas_damier.n_pixels_par_case)
+            ligne = event.y // self.canvas_damier.n_pixels_par_case
+            colonne = event.x // self.canvas_damier.n_pixels_par_case
 
             if self.partie.position_source_valide(Position(ligne, colonne))[0]:
                 if self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.partie.couleur_joueur_courant):
@@ -164,8 +154,8 @@ class FenetrePartie(Tk):
 
 
     def fct_nouvelle_partie(self):
-        interface_dames.py
-        self.destroy()
+
+        self.canvas_damier.actualiser()
 
 
 
@@ -174,7 +164,3 @@ if __name__ == '__main__':
     # Point d'entrée principal du TP4.
     fenetre = FenetrePartie()
     fenetre.mainloop()
-    if fenetre.nouvelle_partie:
-        fenetre.destroy()
-        fenetre = FenetrePartie()
-        fenetre.mainloop()
