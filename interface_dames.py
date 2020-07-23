@@ -58,16 +58,44 @@ class FenetrePartie(Tk):
         self.position_cible_graphique = None
 
         # Création du bouton 'Nouvelle partie'
-        #self.bouton_nouvelle_partie = Button(self, text="Nouvelle partie", command=self.nouvelle_partie())
-        #self.bouton_nouvelle_partie.grid()
+        self.bouton_nouvelle_partie = Button(self, text="Nouvelle partie", command=self.nouvelle_partie)
+        self.bouton_nouvelle_partie.grid()
 
-    def nouvelle_partie(self):
-        #self.partie.__init__()
 
         # Création du bouton 'quitter'
-        #self.bouton_Quitter = Button(self, text="Quitter", command=self.quit, padx=10, pady=10)
-        #self.bouton_Quitter.grid(padx=10, pady=10)
-        pass
+        self.bouton_Quitter = Button(self, text="Quitter", command=self.quit, padx=10, pady=10)
+        self.bouton_Quitter.grid(padx=10, pady=10)
+
+        # Création du bourron 'Réglements'
+        self.bouton_reglements = Button(self, text="Reglements", command=self.open_rules)
+        self.bouton_reglements.grid()
+
+    def nouvelle_partie(self):
+        self.partie.__init__()
+
+
+    def open_rules(self):
+        fenetre_reglements = Tk()
+        text = Label(fenetre_reglements, text="REGLEMENTS DU JEU : \n - Le joueur avec les pièces blanches commence la"
+                                              " partie \n - Une pièce de départ s'appel un pion et peut se déplacer en"
+                                              " diagonale vers l'avant. Une case doit être libre pour pouvoir s'y "
+                                              "déplacer. \n - Lorsqu'un pion atteint le côté opposé du plateau, il "
+                                              "devient un dame. Une dame a la particularité qu'elle peut aussi se "
+                                              "déplacer vers l'arrière. \n - Une prise est l'action de 'manger' une "
+                                              "pièce adverse. Elle est effectuée en sautant par-dessus la pièce "
+                                              "adverse, toujours en diagonale, vers l'avant ou l'arrière. On ne peut "
+                                              "pas sauter par-dessus qu'une pièce adverse à la fois : il faut donc que"
+                                              " la case d'arrivée soit libre \n - Après une prise, le joueur courant "
+                                              "peut effectuer une (ou plusieurs) prise(s) supplémentaire(s) en "
+                                              "utilisant la même pièce. \n - Lors du tour d'un joueur, si celui-ci peut"
+                                              " prendre une pièce ennemie, il doit absolument le faire. \n - Lorsqu'un "
+                                              "joueur commence son tour et prend une pièce adverse, s'il peut continuer"
+                                              " son tour en continuant de prendre des pièces adverses avec la même "
+                                              "pièce, il doit le faire.")
+        text.grid()
+
+        fenetre_reglements.mainloop()
+
 
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier.
