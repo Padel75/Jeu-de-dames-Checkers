@@ -74,9 +74,9 @@ class FenetrePartie(Tk):
         self.partie.__init__()
 
 
-    def open_rules(self):
+    def ouvrir_reglements(self):
         fenetre_reglements = Tk()
-        text = Label(fenetre_reglements, text="REGLEMENTS DU JEU : \n - Le joueur avec les pièces blanches commence la"
+        texte = Label(fenetre_reglements, text="REGLEMENTS DU JEU : \n - Le joueur avec les pièces blanches commence la"
                                               " partie \n - Une pièce de départ s'appel un pion et peut se déplacer en"
                                               " diagonale vers l'avant. Une case doit être libre pour pouvoir s'y "
                                               "déplacer. \n - Lorsqu'un pion atteint le côté opposé du plateau, il "
@@ -92,7 +92,7 @@ class FenetrePartie(Tk):
                                               "joueur commence son tour et prend une pièce adverse, s'il peut continuer"
                                               " son tour en continuant de prendre des pièces adverses avec la même "
                                               "pièce, il doit le faire.")
-        text.grid()
+        texte.grid()
 
         fenetre_reglements.mainloop()
 
