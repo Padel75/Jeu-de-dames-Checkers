@@ -89,32 +89,11 @@ class FenetrePartie(Tk):
             colonne_deplacement = event.x//self.canvas_damier.n_pixels_par_case
 
             if self.partie.position_cible_valide(Position(ligne_deplacement, colonne_deplacement))[0]:
-                if self.partie.doit_prendre:
-                    if self.partie.damier.piece_peut_sauter_vers(self.position_selectionnee, Position(ligne_deplacement, colonne_deplacement)):
-                        self.position_cible_graphique = Position(ligne_deplacement, colonne_deplacement)
-                    else:
-                        self.messages['foreground'] = 'blue'
-                        self.messages['text'] = 'Vous devez faire une prise avec cette pièce'
+                self.position_cible_graphique = Position(ligne_deplacement, colonne_deplacement)
 
-                        self.bool_piece_selectionnee = False
-                        self.piece_selectionnee = None
-                        self.position_selectionnee = None
-                        self.partie.position_source_selectionnee = None
-                        return
-                else:
-                    self.position_cible_graphique = Position(ligne_deplacement, colonne_deplacement)
             else:
-                self.messages['foreground'] = 'yellow'
-                self.messages['text'] = self.partie.position_cible_valide\
-                    (Position(ligne_deplacement, colonne_deplacement))[1]
-
-                self.bool_piece_selectionnee = False
-                self.piece_selectionnee = None
-                self.position_selectionnee = None
-                self.partie.position_source_selectionnee = None
-                self.partie.doit_prendre = False
-
-                return
+                self.messages['foreground'] = 'black'
+                self.messages['text'] = self.partie.position_cible_valide(Position(ligne_deplacement, colonne_deplacement))[1]
 
             self.partie.couple_de_position = self.position_selectionnee, self.position_cible_graphique
             self.partie.tour()
@@ -130,7 +109,6 @@ class FenetrePartie(Tk):
             self.piece_selectionnee = None
             self.position_selectionnee = None
             self.partie.position_source_selectionnee = None
-            self.partie.doit_prendre = False
             return
 
 
@@ -139,34 +117,26 @@ class FenetrePartie(Tk):
             # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
             ligne = int(event.y // self.canvas_damier.n_pixels_par_case)
             colonne = int(event.x // self.canvas_damier.n_pixels_par_case)
+
             if self.partie.position_source_valide(Position(ligne, colonne))[0]:
-
                 if self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.partie.couleur_joueur_courant):
-                    self.partie.doit_prendre = True
-
                     if self.partie.damier.piece_peut_faire_une_prise(Position(ligne, colonne)):
                         if self.partie.position_source_forcee is not None\
                                 and self.partie.position_source_forcee == Position(ligne, colonne):
-
                             self.position_selectionnee = Position(ligne, colonne)
                             self.partie.position_source_selectionnee = self.position_selectionnee
-
                         elif self.partie.position_source_forcee is None:
                             self.position_selectionnee = Position(ligne, colonne)
                             self.partie.position_source_selectionnee = self.position_selectionnee
-
                         else:
                             self.messages['foreground'] = 'red'
                             self.messages['text'] = 'Erreur: Vous devez sélectionner la piece {}'\
                                 .format(str(self.partie.position_source_forcee))
                             return
-
                     else:
                         self.messages['foreground'] = 'red'
                         self.messages['text'] = 'Erreur: Vous devez sélectionner une pièce pouvant faire une prise.'
-
                 else:
-                    self.partie.doit_prendre = False
                     self.position_selectionnee = Position(ligne, colonne)
                     self.partie.position_source_selectionnee = self.position_selectionnee
 
