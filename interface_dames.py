@@ -1,6 +1,7 @@
 # Auteurs: Ariane Fiset et Pascal de Le Rue
 
 from tkinter import Tk, Label, NSEW, Button, Canvas
+import tkinter as tk
 from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
@@ -59,7 +60,7 @@ class FenetrePartie(Tk):
 
         # Création du bouton 'Nouvelle partie'
         self.nouvelle_partie = False
-        self.bouton_Nouvelle_partie = Button(self, text="Nouvelle partie", command=self.fct_nouvelle_partie(), padx=10, pady=10)
+        self.bouton_Nouvelle_partie = Button(self, text="Nouvelle partie", command=self.replace_window(), padx=10, pady=10)
         self.bouton_Nouvelle_partie.grid(padx=10, pady=10)
 
         # Création du bouton 'quitter'
@@ -164,8 +165,6 @@ class FenetrePartie(Tk):
 
     def fct_nouvelle_partie(self):
         self.destroy()
-
-
 
 
 
