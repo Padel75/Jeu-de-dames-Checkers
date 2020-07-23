@@ -58,15 +58,16 @@ class FenetrePartie(Tk):
         self.position_cible_graphique = None
 
         # Création du bouton 'Nouvelle partie'
-        self.bouton_nouvelle_partie = Button(self, text="Nouvelle partie", command=self.nouvelle_partie())
-        self.bouton_nouvelle_partie.grid()
+        #self.bouton_nouvelle_partie = Button(self, text="Nouvelle partie", command=self.nouvelle_partie())
+        #self.bouton_nouvelle_partie.grid()
 
     def nouvelle_partie(self):
-        self.partie.__init__()
+        #self.partie.__init__()
 
         # Création du bouton 'quitter'
-        self.bouton_Quitter = Button(self, text="Quitter", command=self.quit, padx=10, pady=10)
-        self.bouton_Quitter.grid(padx=10, pady=10)
+        #self.bouton_Quitter = Button(self, text="Quitter", command=self.quit, padx=10, pady=10)
+        #self.bouton_Quitter.grid(padx=10, pady=10)
+        pass
 
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier.
