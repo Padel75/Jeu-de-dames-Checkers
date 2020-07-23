@@ -67,7 +67,7 @@ class FenetrePartie(Tk):
         self.bouton_Quitter.grid(padx=10, pady=10)
 
         # Création du bourron 'Réglements'
-        self.bouton_reglements = Button(self, text="Reglements", command=self.open_rules)
+        self.bouton_reglements = Button(self, text="Règlements", command=self.ouvrir_reglements)
         self.bouton_reglements.grid()
 
     def nouvelle_partie(self):
