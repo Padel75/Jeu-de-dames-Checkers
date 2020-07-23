@@ -11,12 +11,15 @@ class IA_dames(FenetrePartie):
 
         super().__init__()
 
-        self.position_1 = -1, -1
-        self.position_2 = -2, -2
+        self.position_1_ligne = randint(0, 7)
+        self.position_1_colonne = randint(0, 7)
+        self.position_2_ligne = randint(0, 7)
+        self.position_2_colonne = randint(0, 7)
 
-    def jouer_contre_IA(self, event):
+    def selectionner(self, event):
 
         if self.partie.couleur_joueur_courant == 'blanc':
+
             if self.bool_piece_selectionnee:
 
                 # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
@@ -97,6 +100,11 @@ class IA_dames(FenetrePartie):
 
 
         else:
+            x = event.x
+            y = event.y
+
+            self.messages['foreground'] = 'black'
+            self.messages['text'] = 'Cliquez pour faire jouer l\'IA.'
             if self.partie.damier.piece_de_couleur_peut_faire_une_prise('noir'):
                 for position_a in self.partie.damier.cases:
                     piece = self.partie.damier.recuperer_piece_a_position(position_a)
@@ -104,17 +112,27 @@ class IA_dames(FenetrePartie):
                         if position_a.piece_peut_faire_une_prise():
                             for position_b in Position.quatre_positions_sauts(position_a):
                                 if position_a.position_cible_valide(position_b)[0]:
+                                    self.partie.position_source_selectionnee = position_a
                                     self.partie.couple_de_position = position_a, position_b
             else:
-                while not Position(self.position_1) in self.partie.damier.cases and self.partie.damier.recuperer_piece_a_position(Position(self.position_1)).couleur == 'noir':
-                    self.position_1 = (randint(0, 7), randint(0, 7))
+                while not Position(self.position_1_ligne, self.position_1_colonne) in self.partie.damier.cases:
+                    if self.partie.damier.recuperer_piece_a_position(Position(self.position_1_ligne,
+                                                                              self.position_1_colonne)) is None:
+                        try:
+                            if self.partie.damier.recuperer_piece_a_position(Position(self.position_1_ligne, self.position_1_colonne)) == 'noir':
+                                break
+                        except Exception:
+                            self.position_1_ligne = randint(0, 7)
+                            self.position_1_colonne = randint(0, 7)
 
-                for pos in Position(self.position_1).quatre_positions_diagonales():
-                    if self.partie.position_cible_valide(Position(pos))[0]:
+                self.partie.position_source_selectionnee = Position(self.position_1_ligne, self.position_1_colonne)
 
+                for pos in Position(self.position_1_ligne, self.position_1_colonne).quatre_positions_diagonales():
+                    if self.partie.position_cible_valide(pos)[0]:
                         self.position_2 = pos
 
-                self.partie.couple_de_position = self.position_1, self.position_2
+                self.partie.couple_de_position = \
+                    Position(self.position_1_ligne, self.position_1_colonne), self.position_2
 
                 self.partie.tour()
 
@@ -134,6 +152,6 @@ class IA_dames(FenetrePartie):
                 return
 
 
-if __name__ == 'main':
+if __name__ == '__main__':
     ia = IA_dames()
     ia.mainloop()
