@@ -58,7 +58,8 @@ class FenetrePartie(Tk):
         self.position_cible_graphique = None
 
         # Création du bouton 'Nouvelle partie'
-        self.bouton_nouvelle_partie = Button(self, text="Nouvelle partie", command=self.nouvelle_partie)
+        self.bouton_nouvelle_partie = Button(self, text="Nouvelle partie", command=self.nouvelle_partie, padx=10,
+                                             pady=10)
         self.bouton_nouvelle_partie.grid(padx=10, pady=10)
 
 
@@ -67,8 +68,8 @@ class FenetrePartie(Tk):
         self.bouton_Quitter.grid(padx=10, pady=10)
 
         # Création du bourron 'Réglements'
-        self.bouton_reglements = Button(self, text="Règlements", command=self.ouvrir_reglements)
-        self.bouton_reglements.grid()
+        self.bouton_reglements = Button(self, text="Règlements", command=self.ouvrir_reglements, padx=10, pady=10)
+        self.bouton_reglements.grid(padx=10, pady=10)
 
     def nouvelle_partie(self):
         self.destroy()
@@ -78,23 +79,23 @@ class FenetrePartie(Tk):
     def ouvrir_reglements(self):
         fenetre_reglements = Tk()
         texte = Label(fenetre_reglements, text="REGLEMENTS DU JEU : \n"
-                                               " - Le joueur avec les pièces blanches commence la partie \n"
+                                               " - Le joueur avec les pièces blanches commence la partie \n \n"
                                                " - Une pièce de départ s'appel un pion et peut se déplacer \n"
                                                "en diagonale vers l'avant. Une case doit être libre pour \n"
-                                               "pouvoir s'y déplacer. \n"
+                                               "pouvoir s'y déplacer. \n \n"
                                                " - Lorsqu'un pion atteint le côté opposé du plateau, il \n"
                                                " devient un dame. Une dame a la particularité qu'elle peut \n"
-                                               " aussi se déplacer vers l'arrière. \n"
+                                               " aussi se déplacer vers l'arrière. \n \n"
                                                " - Une prise est l'action de 'manger' une pièce adverse. \n"
                                                " Elle est effectuée en sautant par-dessus la pièce adverse,\n"
                                                " toujours en diagonale, vers l'avant ou l'arrière. On ne \n"
                                                " peut pas sauter par-dessus qu'une pièce adverse à la fois :\n"
-                                               " il faut donc que la case d'arrivée soit libre \n"
+                                               " il faut donc que la case d'arrivée soit libre \n \n"
                                                " - Après une prise, le joueur courant peut effectuer une\n"
                                                " (ou plusieurs) prise(s) supplémentaire(s) en utilisant la\n"
-                                               " même pièce. \n"
+                                               " même pièce. \n \n"
                                                " - Lors du tour d'un joueur, si celui-ci peut prendre une\n"
-                                               " pièce ennemie, il doit absolument le faire. \n"
+                                               " pièce ennemie, il doit absolument le faire. \n \n"
                                                " - Lorsqu'un joueur commence son tour et prend une pièce\n"
                                                " adverse, s'il peut continuer son tour en continuant de\n"
                                                " prendre des pièces adverses avec la même pièce, il doit\n"
