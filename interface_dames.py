@@ -163,6 +163,7 @@ class FenetrePartie(Tk):
 
 
     def fct_nouvelle_partie(self):
+        interface_dames.py
         self.destroy()
 
 
