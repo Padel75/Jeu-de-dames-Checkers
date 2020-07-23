@@ -76,22 +76,28 @@ class FenetrePartie(Tk):
 
     def ouvrir_reglements(self):
         fenetre_reglements = Tk()
-        texte = Label(fenetre_reglements, text="REGLEMENTS DU JEU : \n - Le joueur avec les pièces blanches commence la"
-                                              " partie \n - Une pièce de départ s'appel un pion et peut se déplacer en"
-                                              " diagonale vers l'avant. Une case doit être libre pour pouvoir s'y "
-                                              "déplacer. \n - Lorsqu'un pion atteint le côté opposé du plateau, il "
-                                              "devient un dame. Une dame a la particularité qu'elle peut aussi se "
-                                              "déplacer vers l'arrière. \n - Une prise est l'action de 'manger' une "
-                                              "pièce adverse. Elle est effectuée en sautant par-dessus la pièce "
-                                              "adverse, toujours en diagonale, vers l'avant ou l'arrière. On ne peut "
-                                              "pas sauter par-dessus qu'une pièce adverse à la fois : il faut donc que"
-                                              " la case d'arrivée soit libre \n - Après une prise, le joueur courant "
-                                              "peut effectuer une (ou plusieurs) prise(s) supplémentaire(s) en "
-                                              "utilisant la même pièce. \n - Lors du tour d'un joueur, si celui-ci peut"
-                                              " prendre une pièce ennemie, il doit absolument le faire. \n - Lorsqu'un "
-                                              "joueur commence son tour et prend une pièce adverse, s'il peut continuer"
-                                              " son tour en continuant de prendre des pièces adverses avec la même "
-                                              "pièce, il doit le faire.")
+        texte = Label(fenetre_reglements, text="REGLEMENTS DU JEU : \n"
+                                               " - Le joueur avec les pièces blanches commence la partie \n"
+                                               " - Une pièce de départ s'appel un pion et peut se déplacer \n"
+                                               "en diagonale vers l'avant. Une case doit être libre pour \n"
+                                               "pouvoir s'y déplacer. \n"
+                                               " - Lorsqu'un pion atteint le côté opposé du plateau, il \n"
+                                               " devient un dame. Une dame a la particularité qu'elle peut \n"
+                                               " aussi se déplacer vers l'arrière. \n"
+                                               " - Une prise est l'action de 'manger' une pièce adverse. \n"
+                                               " Elle est effectuée en sautant par-dessus la pièce adverse,\n"
+                                               " toujours en diagonale, vers l'avant ou l'arrière. On ne \n"
+                                               " peut pas sauter par-dessus qu'une pièce adverse à la fois :\n"
+                                               " il faut donc que la case d'arrivée soit libre \n"
+                                               " - Après une prise, le joueur courant peut effectuer une\n"
+                                               " (ou plusieurs) prise(s) supplémentaire(s) en utilisant la\n"
+                                               " même pièce. \n"
+                                               " - Lors du tour d'un joueur, si celui-ci peut prendre une\n"
+                                               " pièce ennemie, il doit absolument le faire. \n"
+                                               " - Lorsqu'un joueur commence son tour et prend une pièce\n"
+                                               " adverse, s'il peut continuer son tour en continuant de\n"
+                                               " prendre des pièces adverses avec la même pièce, il doit\n"
+                                               " le faire.", anchor='e')
         texte.grid()
 
         fenetre_reglements.mainloop()
