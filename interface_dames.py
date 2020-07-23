@@ -59,7 +59,7 @@ class FenetrePartie(Tk):
 
         # Création du bouton 'Nouvelle partie'
         self.bouton_nouvelle_partie = Button(self, text="Nouvelle partie", command=self.nouvelle_partie)
-        self.bouton_nouvelle_partie.grid()
+        self.bouton_nouvelle_partie.grid(padx=10, pady=10)
 
 
         # Création du bouton 'quitter'
