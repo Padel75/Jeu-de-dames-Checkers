@@ -58,7 +58,8 @@ class FenetrePartie(Tk):
         self.position_cible_graphique = None
 
         # Création du bouton 'Nouvelle partie'
-        self.bouton_Nouvelle_partie = Button(self, text="Nouvelle partie", command=self.quit, padx=10, pady=10)
+        self.nouvelle_partie = False
+        self.bouton_Nouvelle_partie = Button(self, text="Nouvelle partie", command=self.fct_nouvelle_partie(), padx=10, pady=10)
         self.bouton_Nouvelle_partie.grid(padx=10, pady=10)
 
         # Création du bouton 'quitter'
@@ -161,6 +162,8 @@ class FenetrePartie(Tk):
             self.canvas_damier.actualiser()
 
 
+    def fct_nouvelle_partie(self):
+        self.destroy()
 
 
 
@@ -171,3 +174,7 @@ if __name__ == '__main__':
     # Point d'entrée principal du TP4.
     fenetre = FenetrePartie()
     fenetre.mainloop()
+    if fenetre.nouvelle_partie:
+        fenetre.destroy()
+        fenetre = FenetrePartie()
+        fenetre.mainloop()
