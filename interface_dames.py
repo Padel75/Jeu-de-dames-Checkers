@@ -1,7 +1,6 @@
 # Auteurs: Ariane Fiset et Pascal de Le Rue
 
 from tkinter import Tk, Label, NSEW, Button, Canvas
-import tkinter as tk
 from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
@@ -59,9 +58,11 @@ class FenetrePartie(Tk):
         self.position_cible_graphique = None
 
         # Création du bouton 'Nouvelle partie'
-        self.nouvelle_partie = False
-        self.bouton_Nouvelle_partie = Button(self, text="Nouvelle partie", command=self.fct_nouvelle_partie(), padx=10, pady=10)
-        self.bouton_Nouvelle_partie.grid(padx=10, pady=10)
+        self.bouton_nouvelle_partie = Button(self, text="Nouvelle partie", command=self.nouvelle_partie())
+        self.bouton_nouvelle_partie.grid()
+
+    def nouvelle_partie(self):
+        self.partie.__init__()
 
         # Création du bouton 'quitter'
         self.bouton_Quitter = Button(self, text="Quitter", command=self.quit, padx=10, pady=10)
@@ -153,9 +154,6 @@ class FenetrePartie(Tk):
             self.canvas_damier.actualiser()
 
 
-    def fct_nouvelle_partie(self):
-
-        self.canvas_damier.actualiser()
 
 
 
