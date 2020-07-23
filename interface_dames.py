@@ -71,7 +71,8 @@ class FenetrePartie(Tk):
         self.bouton_reglements.grid()
 
     def nouvelle_partie(self):
-        self.partie.__init__()
+        self.destroy()
+        self.__init__()
 
 
     def ouvrir_reglements(self):
