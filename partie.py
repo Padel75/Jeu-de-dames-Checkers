@@ -166,7 +166,6 @@ class Partie:
         if self.damier.piece_de_couleur_peut_faire_une_prise(self.couleur_joueur_courant):
             self.doit_prendre = True
 
-
         # Demander les positions
         position_source, position_cible = self.couple_de_position
 
