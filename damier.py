@@ -188,7 +188,6 @@ class Damier:
 
         Returns:
             bool: True si une pièce est à la position reçue et celle-ci peut faire une prise. False autrement.
-
         """
         verdict = False
         for position_cible in position_piece.quatre_positions_sauts():

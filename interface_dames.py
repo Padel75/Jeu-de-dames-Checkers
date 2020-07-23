@@ -87,8 +87,10 @@ class FenetrePartie(Tk):
             # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
             ligne_deplacement = event.y//self.canvas_damier.n_pixels_par_case
             colonne_deplacement = event.x//self.canvas_damier.n_pixels_par_case
+
             if self.partie.position_cible_valide(Position(ligne_deplacement, colonne_deplacement))[0]:
                 self.position_cible_graphique = Position(ligne_deplacement, colonne_deplacement)
+
             else:
                 self.messages['foreground'] = 'black'
                 self.messages['text'] = self.partie.position_cible_valide(Position(ligne_deplacement, colonne_deplacement))[1]
@@ -111,14 +113,34 @@ class FenetrePartie(Tk):
 
 
         if not self.bool_piece_selectionnee:
+
             # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
             ligne = int(event.y // self.canvas_damier.n_pixels_par_case)
             colonne = int(event.x // self.canvas_damier.n_pixels_par_case)
-            if self.partie.position_source_valide(Position(ligne, colonne))[0]:
-                self.position_selectionnee = Position(ligne, colonne)
-                self.partie.position_source_selectionnee = self.position_selectionnee
 
-            # On récupère l'information sur la pièce à l'endroit choisi.
+            if self.partie.position_source_valide(Position(ligne, colonne))[0]:
+                if self.partie.damier.piece_de_couleur_peut_faire_une_prise(self.partie.couleur_joueur_courant):
+                    if self.partie.damier.piece_peut_faire_une_prise(Position(ligne, colonne)):
+                        if self.partie.position_source_forcee is not None\
+                                and self.partie.position_source_forcee == Position(ligne, colonne):
+                            self.position_selectionnee = Position(ligne, colonne)
+                            self.partie.position_source_selectionnee = self.position_selectionnee
+                        elif self.partie.position_source_forcee is None:
+                            self.position_selectionnee = Position(ligne, colonne)
+                            self.partie.position_source_selectionnee = self.position_selectionnee
+                        else:
+                            self.messages['foreground'] = 'red'
+                            self.messages['text'] = 'Erreur: Vous devez sélectionner la piece {}'\
+                                .format(str(self.partie.position_source_forcee))
+                            return
+                    else:
+                        self.messages['foreground'] = 'red'
+                        self.messages['text'] = 'Erreur: Vous devez sélectionner une pièce pouvant faire une prise.'
+                else:
+                    self.position_selectionnee = Position(ligne, colonne)
+                    self.partie.position_source_selectionnee = self.position_selectionnee
+
+                # On récupère l'information sur la pièce à l'endroit choisi.
                 self.piece_selectionnee = self.partie.damier.recuperer_piece_a_position(self.position_selectionnee)
 
                 if self.piece_selectionnee is None:
@@ -133,6 +155,7 @@ class FenetrePartie(Tk):
                 print(self.partie.position_source_valide(Position(ligne, colonne))[1])
                 self.messages['foreground'] = 'black'
                 self.messages['text'] = self.partie.position_source_valide(Position(ligne, colonne))[1]
+                return
 
             # On affiche le damier mis a jour.
             self.canvas_damier.actualiser()
