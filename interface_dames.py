@@ -112,7 +112,6 @@ class FenetrePartie(Tk):
                                                " prendre des pièces adverses avec la même pièce, il doit\n"
                                                " le faire.", anchor='e')
         texte.grid()
-
         fenetre_reglements.mainloop()
 
     def afficher_deplacements(self):
