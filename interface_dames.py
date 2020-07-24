@@ -160,6 +160,10 @@ class FenetrePartie(Tk):
             self.partie.position_source_selectionnee = None
             return
 
+    def dimensions_damier(self):
+        self.partie.damier.n_colonnes = nbr_colonnes
+        self.partie.damier.n_lignes = nbr_lignes
+
 
         if not self.bool_piece_selectionnee:
 
