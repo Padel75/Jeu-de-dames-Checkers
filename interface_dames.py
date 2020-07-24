@@ -1,6 +1,6 @@
 # Auteurs: Ariane Fiset et Pascal de Le Rue
 
-from tkinter import Tk, Label, NSEW, Button, Canvas
+from tkinter import Tk, Label, NSEW, Button, Canvas, Frame
 from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
@@ -57,19 +57,25 @@ class FenetrePartie(Tk):
         # Variable de déplacement
         self.position_cible_graphique = None
 
+        self.cadre_bouton = Frame()
+        self.cadre_bouton.grid()
+
         # Création du bouton 'Nouvelle partie'
-        self.bouton_nouvelle_partie = Button(self, text="Nouvelle partie", command=self.nouvelle_partie, padx=10,
-                                             pady=10)
-        self.bouton_nouvelle_partie.grid(padx=10, pady=10)
+        self.bouton_nouvelle_partie = Button(self.cadre_bouton, text="Nouvelle partie",
+                                             command=self.nouvelle_partie, padx=10, pady=10)
+        self.bouton_nouvelle_partie.grid(padx=10, pady=10, column=0, row=0)
 
 
         # Création du bouton 'quitter'
-        self.bouton_Quitter = Button(self, text="Quitter", command=self.quit, padx=10, pady=10)
-        self.bouton_Quitter.grid(padx=10, pady=10)
+        self.bouton_Quitter = Button(self.cadre_bouton, text="Quitter", command=self.quit, padx=10, pady=10)
+        self.bouton_Quitter.grid(padx=10, pady=10, column=1, row=0)
 
         # Création du bourron 'Réglements'
-        self.bouton_reglements = Button(self, text="Règlements", command=self.ouvrir_reglements, padx=10, pady=10)
-        self.bouton_reglements.grid(padx=10, pady=10)
+        self.bouton_reglements = Button(self.cadre_bouton, text="Règlements",
+                                        command=self.ouvrir_reglements, padx=10, pady=10)
+        self.bouton_reglements.grid(padx=10, pady=10, column=2, row=0)
+
+        self.liste_déplacement = []
 
     def nouvelle_partie(self):
         self.destroy()
