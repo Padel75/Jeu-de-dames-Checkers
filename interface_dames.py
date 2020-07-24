@@ -1,6 +1,6 @@
 # Auteurs: Ariane Fiset et Pascal de Le Rue
 
-from tkinter import Tk, Label, NSEW, Button, Canvas, Frame
+from tkinter import Tk, Label, NSEW, Button, Canvas, Frame, ttk
 from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
@@ -274,21 +274,30 @@ class Fenetredimension(Tk):
             messages (Label): Un «widget» affichant des messages textes à l'utilisateur du programme
 
         """
-    # Appel du constructeur de la classe de base (Tk)
-    super().__init__()
-    # Création de combobox dimensions damier
-    fenetre_dim = Label()
-    self.dimension_lignes_damier = ttk.Combobox(self.cadre_bouton, values=('5', '6', '7', '8', '9', '10', '11', '12'))
-    self.dimension_lignes_damier.grid()
-    self.dimension_lignes_damier.current(3)
-    self.dimension_colonne_damier = ttk.Combobox(self.cadre_bouton, values=('5', '6', '7', '8', '9', '10', '11', '12'))
-    self.dimension_colonne_damier.grid()
-    self.dimension_colonne_damier.current(3)
+    def __init__(self):
+        """Constructeur de la classe Fenetredimension.
+        """
+        # Appel du constructeur de la classe de base (Tk)
+        super().__init__()
+        # Création de combobox dimensions damier
+        fenetre_dim = Label()
+        self.dimension_lignes_damier = ttk.Combobox(self.cadre_bouton, values=('5', '6', '7', '8', '9', '10', '11', '12'))
+        self.dimension_lignes_damier.grid()
+        self.dimension_lignes_damier.current(3)
+        self.dimension_colonne_damier = ttk.Combobox(self.cadre_bouton, values=('5', '6', '7', '8', '9', '10', '11', '12'))
+        self.dimension_colonne_damier.grid()
+        self.dimension_colonne_damier.current(3)
 
 
 
 
 if __name__ == '__main__':
-    # Point d'entrée principal du TP4.
+    # Ouverture de la fenetre de dimensionnement de la partie
+    fenetre_dimensionnement = Fenetredimension()
+    fenetre_dimensionnement.mainloop()
+
+    # Ouverture de la fenetre du jeu
+    fenetre = FenetrePartie()
+    fenetre.mainloop()
     fenetre = FenetrePartie()
     fenetre.mainloop()
