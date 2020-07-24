@@ -101,6 +101,7 @@ class FenetrePartie(Tk):
         #self.partie.damier.n_colonnes = self.Fenetredimension.dimension_colonne_damier
         #self.partie.damier.n_lignes = self.Fenetredimension.dimension_lignes_damier
 
+
     def nouvelle_partie(self):
         self.destroy()
         self.__init__()
@@ -346,14 +347,16 @@ class Fenetredimension(Tk):
         self.dimension_lignes_damier = ttk.Combobox(fenetre_dim, text='Nombre de lignes du damier', values=('5', '6', '7', '8', '9', '10', '11', '12'))
         self.dimension_lignes_damier.grid()
         self.dimension_lignes_damier.current(3)
+        self.nbr_ligne_partie = int(self.dimension_lignes_damier.get())
         self.dimension_colonne_damier = ttk.Combobox(fenetre_dim, text='Nombre de colonne du damier', values=('5', '6', '7', '8', '9', '10', '11', '12'))
         self.dimension_colonne_damier.grid()
         self.dimension_colonne_damier.current(3)
+        self.nbr_colonne_partie = int(self.dimension_colonne_damier.get())
         self.bouton_debut_partie = Button(fenetre_dim, text='Débuter la partie', command=fenetre_dim.quit)
         self.bouton_debut_partie.grid()
 
-
 if __name__ == '__main__':
+
     # Ouverture de la fenetre de dimensionnement de la partie
     #fenetre_dimensionnement = Fenetredimension()
     #fenetre_dimensionnement.mainloop()
