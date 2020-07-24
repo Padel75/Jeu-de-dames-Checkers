@@ -265,7 +265,25 @@ class FenetrePartie(Tk):
             # On affiche le damier mis a jour.
             self.canvas_damier.actualiser()
 
+class Fenetredimension(Tk):
+    """Interface graphique du dimensionnement de la partie de dame
 
+        Attributes:
+            partie (Partie): Le gestionnaire de la partie de dame
+            canvas_damier (CanvasDamier): Le «widget» gérant l'affichage du damier à l'écran
+            messages (Label): Un «widget» affichant des messages textes à l'utilisateur du programme
+
+        """
+    # Appel du constructeur de la classe de base (Tk)
+    super().__init__()
+    # Création de combobox dimensions damier
+    fenetre_dim = Label()
+    self.dimension_lignes_damier = ttk.Combobox(self.cadre_bouton, values=('5', '6', '7', '8', '9', '10', '11', '12'))
+    self.dimension_lignes_damier.grid()
+    self.dimension_lignes_damier.current(3)
+    self.dimension_colonne_damier = ttk.Combobox(self.cadre_bouton, values=('5', '6', '7', '8', '9', '10', '11', '12'))
+    self.dimension_colonne_damier.grid()
+    self.dimension_colonne_damier.current(3)
 
 
 
