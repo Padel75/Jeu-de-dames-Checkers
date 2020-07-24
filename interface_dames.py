@@ -5,7 +5,7 @@ from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
 from os import getcwd, remove
-from pickle import dumps, loads
+
 
 
 class FenetrePartie(Tk):
@@ -171,9 +171,24 @@ class FenetrePartie(Tk):
     def charger_partie(self):
         if self.existe('sauvegarde.txt'):
             unfichier = open('sauvegarde.txt', 'r')
-            dico = unfichier.readline()
-            print(dico)
+            dicostr = unfichier.readline()
             unfichier.close()
+            # Point test:
+            print(type(dicostr))
+            print(dicostr)
+
+            dico = {}
+            clé = ''
+            valeur = ''
+
+            for i in dicostr:
+                if i == '{' or i == '}':
+                    pass
+                elif i == ':':
+                    break
+
+
+
 
 
     def selectionner(self, event):
