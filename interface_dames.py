@@ -5,6 +5,7 @@ from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
 from os import getcwd, remove
+from piece import Piece
 
 
 
@@ -93,12 +94,12 @@ class FenetrePartie(Tk):
 
         # Création du bouton 'Charger'
         self.bouton_charger = Button(self.cadre_bouton, text='Charger',
-                                         command=self.charger_partie(), padx=10, pady=10)
+                                         command=self.charger_partie, padx=10, pady=10)
         self.bouton_charger.grid(padx=10, pady=10, column=2, row=1)
 
         # Dimension du damier
-        self.partie.damier.n_colonnes = self.Fenetredimension.dimension_colonne_damier
-        self.partie.damier.n_lignes = self.Fenetredimension.dimension_lignes_damier
+        #self.partie.damier.n_colonnes = self.Fenetredimension.dimension_colonne_damier
+        #self.partie.damier.n_lignes = self.Fenetredimension.dimension_lignes_damier
 
     def nouvelle_partie(self):
         self.destroy()
@@ -179,16 +180,59 @@ class FenetrePartie(Tk):
             print(dicostr)
 
             dico = {}
-            clé = ''
+            clef = ''
+            clef_p = ''
             valeur = ''
 
             for i in dicostr:
-                if i == '{' or i == '}':
+                if i == '{' or i == '}' or i == ' ' or i == ',':
                     pass
+                elif i == 'o' or i == 'O' or i == 'x' or i =='X':
+                    if i == 'o':
+                        valeur = Piece("blanc", "pion")
+                        dico[clef_p] = valeur
+                        clef_p = ''
+                        valeur = ''
+                        clef = ''
+                    if i == 'O':
+                        valeur = Piece("blanc", "dame")
+                        dico[clef_p] = valeur
+                        clef_p = ''
+                        valeur = ''
+                        clef = ''
+                    if i == 'x':
+                        valeur = Piece("noir", "pion")
+                        dico[clef_p] = valeur
+                        clef_p = ''
+                        valeur = ''
+                        clef = ''
+                    if i == 'X':
+                        valeur = Piece("noir", "dame")
+                        dico[clef_p] = valeur
+                        clef_p = ''
+                        valeur = ''
+                        clef = ''
                 elif i == ':':
-                    break
+                    tuple1 = ''
+                    for i in clef:
+                        try:
+                            int(i)
+                            tuple1 += i
+                        except Exception:
+                            pass
+                    clef_p = Position(int(tuple1[0]), int(tuple1[1]))
+                    tuple1 = ''
+                    clef = ''
+                else:
+                    clef += i
 
-
+            print(valeur)
+            print(dicostr)
+            print(dico)
+            self.partie.damier.cases = dico
+            self.canvas_damier.actualiser()
+        else:
+             print('ce fichier n\'existe pas')
 
 
 
@@ -311,8 +355,8 @@ class Fenetredimension(Tk):
 
 if __name__ == '__main__':
     # Ouverture de la fenetre de dimensionnement de la partie
-    fenetre_dimensionnement = Fenetredimension()
-    fenetre_dimensionnement.mainloop()
+    #fenetre_dimensionnement = Fenetredimension()
+    #fenetre_dimensionnement.mainloop()
 
     # Ouverture de la fenetre du jeu
     fenetre = FenetrePartie()
