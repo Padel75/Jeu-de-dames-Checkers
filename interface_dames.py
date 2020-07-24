@@ -96,6 +96,10 @@ class FenetrePartie(Tk):
                                          command=self.charger_partie(), padx=10, pady=10)
         self.bouton_charger.grid(padx=10, pady=10, column=2, row=1)
 
+        # Dimension du damier
+        self.partie.damier.n_colonnes = self.Fenetredimension.dimension_colonne_damier
+        self.partie.damier.n_lignes = self.Fenetredimension.dimension_lignes_damier
+
     def nouvelle_partie(self):
         self.destroy()
         self.__init__()
@@ -135,9 +139,6 @@ class FenetrePartie(Tk):
         fenetre_deplacements.mainloop()
 
 
-    def dimensions_damier(self):
-        self.partie.damier.n_colonnes = nbr_colonnes
-        self.partie.damier.n_lignes = nbr_lignes
 
     def existe(self, nom_de_fichier):
         """
@@ -267,15 +268,14 @@ class FenetrePartie(Tk):
 
 class Fenetredimension(Tk):
     """Interface graphique du dimensionnement de la partie de dame
-
-        Attributes:
+       Attributes:
             partie (Partie): Le gestionnaire de la partie de dame
             canvas_damier (CanvasDamier): Le «widget» gérant l'affichage du damier à l'écran
             messages (Label): Un «widget» affichant des messages textes à l'utilisateur du programme
+    """
 
-        """
     def __init__(self):
-        """Constructeur de la classe Fenetredimension.
+        """#Constructeur de la classe Fenetredimension.
         """
         # Appel du constructeur de la classe de base (Tk)
         super().__init__()
@@ -294,8 +294,8 @@ class Fenetredimension(Tk):
 
 if __name__ == '__main__':
     # Ouverture de la fenetre de dimensionnement de la partie
-    #fenetre_dimensionnement = Fenetredimension()
-    #fenetre_dimensionnement.mainloop()
+    fenetre_dimensionnement = Fenetredimension()
+    fenetre_dimensionnement.mainloop()
 
     # Ouverture de la fenetre du jeu
     fenetre = FenetrePartie()
