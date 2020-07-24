@@ -4,6 +4,8 @@ from tkinter import Tk, Label, NSEW, Button, Canvas, Frame
 from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
+from os import getcwd, remove
+from pickle import dumps, loads
 
 
 class FenetrePartie(Tk):
@@ -58,6 +60,8 @@ class FenetrePartie(Tk):
 
         self.texte_deplacements = 'Liste des déplacements, du plus récent au plus ancien: \n'
 
+        self.rep_courant = getcwd()
+
         #Cadre des boutons
         self.cadre_bouton = Frame()
         self.cadre_bouton.grid()
@@ -72,15 +76,25 @@ class FenetrePartie(Tk):
         self.bouton_Quitter = Button(self.cadre_bouton, text="Quitter", command=self.quit, padx=10, pady=10)
         self.bouton_Quitter.grid(padx=10, pady=10, column=1, row=0)
 
-        # Création du bourron 'Réglements'
+        # Création du bourron 'Règlements'
         self.bouton_reglements = Button(self.cadre_bouton, text="Règlements",
                                         command=self.ouvrir_reglements, padx=10, pady=10)
         self.bouton_reglements.grid(padx=10, pady=10, column=2, row=0)
 
+        # Création du bouton 'Déplacement'
         self.bouton_deplacements = Button(self.cadre_bouton, text='Déplacements',
                                           command=self.afficher_deplacements, padx=10, pady=10)
         self.bouton_deplacements.grid(padx=10, pady=10, column=3, row=0)
 
+        # Création du bouton 'Sauvegarder'
+        self.bouton_sauvegarder = Button(self.cadre_bouton, text='Sauvegarder',
+                                         command=self.sauvegarder_partie, padx=10, pady=10)
+        self.bouton_sauvegarder.grid(padx=10, pady=10, column=0, row=1)
+
+        # Création du bouton 'Sauvegarder'
+        self.bouton_charger = Button(self.cadre_bouton, text='Charger',
+                                         command=self.charger_partie(), padx=10, pady=10)
+        self.bouton_charger.grid(padx=10, pady=10, column=2, row=1)
 
     def nouvelle_partie(self):
         self.destroy()
@@ -124,6 +138,42 @@ class FenetrePartie(Tk):
     def dimensions_damier(self):
         self.partie.damier.n_colonnes = nbr_colonnes
         self.partie.damier.n_lignes = nbr_lignes
+
+    def existe(self, nom_de_fichier):
+        """
+        Fonction vérifiant l'existence d'un fichier.
+
+        Note: Cette fonction est directement inspirée d'une fonction contenu dans le livre
+        'Apprendre à programmer avec Python 3', Gérard Swinnen, page 118.
+
+        Args:
+            nom_de_fichier (str): le nom d'un fichier.
+
+        Returns:
+            bool: True si le fichier existe, False autrement
+        """
+        try:
+            f = open(nom_de_fichier, 'r')
+            f.close()
+            return True
+        except Exception:
+            return False
+
+    def sauvegarder_partie(self):
+        # demander par une fenêtre si l'utilisateur veut écraser une éventuelle sauvegarde précédente.
+        if self.existe('sauvegarde'):
+            remove('sauvegarde')
+        else:
+            fichier = open('sauvegarde', 'w')
+            print(self.partie.damier.cases, file=fichier)
+            fichier.close()
+
+    def charger_partie(self):
+        if self.existe('sauvegarde'):
+            fichier = open('sauvegarde', 'r')
+            self.partie.damier.cases = fichier
+            fichier.close()
+
 
 
     def selectionner(self, event):
