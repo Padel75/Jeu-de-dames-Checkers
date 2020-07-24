@@ -92,9 +92,9 @@ class FenetrePartie(Tk):
         self.bouton_sauvegarder.grid(padx=10, pady=10, column=0, row=1)
 
         # Création du bouton 'Charger'
-        #self.bouton_charger = Button(self.cadre_bouton, text='Charger',
-         #                                command=self.charger_partie(), padx=10, pady=10)
-        #self.bouton_charger.grid(padx=10, pady=10, column=2, row=1)
+        self.bouton_charger = Button(self.cadre_bouton, text='Charger',
+                                         command=self.charger_partie(), padx=10, pady=10)
+        self.bouton_charger.grid(padx=10, pady=10, column=2, row=1)
 
     def nouvelle_partie(self):
         self.destroy()
@@ -170,6 +170,10 @@ class FenetrePartie(Tk):
 
     def charger_partie(self):
         if self.existe('sauvegarde.txt'):
+            unfichier = open('sauvegarde.txt', 'r')
+            dico = unfichier.readline()
+            print(dico)
+            unfichier.close()
 
 
     def selectionner(self, event):
@@ -294,7 +298,5 @@ if __name__ == '__main__':
     #fenetre_dimensionnement.mainloop()
 
     # Ouverture de la fenetre du jeu
-    fenetre = FenetrePartie()
-    fenetre.mainloop()
     fenetre = FenetrePartie()
     fenetre.mainloop()
