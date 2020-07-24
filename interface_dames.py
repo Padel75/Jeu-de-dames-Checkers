@@ -166,10 +166,10 @@ class FenetrePartie(Tk):
         # demander par une fenêtre si l'utilisateur veut écraser une éventuelle sauvegarde précédente.
         if self.existe('sauvegarde.txt'):
             remove('sauvegarde.txt')
-        else:
-            fichier = open('sauvegarde.txt', 'w')
-            print(self.partie.damier.cases, file=fichier)
-            fichier.close()
+
+        fichier = open('sauvegarde.txt', 'w')
+        print(self.partie.damier.cases, file=fichier)
+        fichier.close()
 
     def charger_partie(self):
         if self.existe('sauvegarde.txt'):
