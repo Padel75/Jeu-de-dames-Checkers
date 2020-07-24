@@ -92,9 +92,9 @@ class FenetrePartie(Tk):
         self.bouton_sauvegarder.grid(padx=10, pady=10, column=0, row=1)
 
         # Création du bouton 'Sauvegarder'
-        self.bouton_charger = Button(self.cadre_bouton, text='Charger',
-                                         command=self.charger_partie(), padx=10, pady=10)
-        self.bouton_charger.grid(padx=10, pady=10, column=2, row=1)
+        #self.bouton_charger = Button(self.cadre_bouton, text='Charger',
+        #                                 command=self.charger_partie(), padx=10, pady=10)
+        #self.bouton_charger.grid(padx=10, pady=10, column=2, row=1)
 
     def nouvelle_partie(self):
         self.destroy()
@@ -168,11 +168,11 @@ class FenetrePartie(Tk):
             print(self.partie.damier.cases, file=fichier)
             fichier.close()
 
-    def charger_partie(self):
-        if self.existe('sauvegarde'):
-            fichier = open('sauvegarde', 'r')
-            self.partie.damier.cases = fichier
-            fichier.close()
+ #   def charger_partie(self):
+  #      if self.existe('sauvegarde'):
+   #         fichier = open('sauvegarde', 'r')
+    #        self.partie.damier.cases = fichier
+     #       fichier.close()
 
 
 
