@@ -96,9 +96,13 @@ class FenetrePartie(Tk):
                                          command=self.charger_partie(), padx=10, pady=10)
         self.bouton_charger.grid(padx=10, pady=10, column=2, row=1)
 
+        # Création du bouton 'Tricherie'
+        self.bouton_triche = Button(self.cadre_bouton, text='Tricherie', command=self.quit(), padx=10, pady=10)
+        self.bouton_triche.grid(padx=10, pady=10, column=3, row=1)
+
         # Dimension du damier
-        self.partie.damier.n_colonnes = self.Fenetredimension.nbr_ligne_partie
-        self.partie.damier.n_lignes = self.Fenetredimension.nbr_ligne_partie
+        #self.partie.damier.n_colonnes = self.Fenetredimension.nbr_ligne_partie
+        #self.partie.damier.n_lignes = self.Fenetredimension.nbr_ligne_partie
 
     def nouvelle_partie(self):
         self.destroy()
@@ -191,6 +195,10 @@ class FenetrePartie(Tk):
 
 
 
+
+    def tricherie(self):
+        fenetre_tricherie = Tk()
+        tricherie_noir = Button
 
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier.
@@ -312,8 +320,8 @@ class Fenetredimension(Tk):
 
 if __name__ == '__main__':
     # Ouverture de la fenetre de dimensionnement de la partie
-    fenetre_dimensionnement = Fenetredimension()
-    fenetre_dimensionnement.mainloop()
+    #fenetre_dimensionnement = Fenetredimension()
+    #fenetre_dimensionnement.mainloop()
 
     # Ouverture de la fenetre du jeu
     fenetre = FenetrePartie()
