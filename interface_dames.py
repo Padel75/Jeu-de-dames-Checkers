@@ -57,6 +57,8 @@ class FenetrePartie(Tk):
         # Variable de déplacement
         self.position_cible_graphique = None
 
+        self.texte_deplacements = 'Liste des déplacements, du plus récent au plus ancien: \n'
+
         self.cadre_bouton = Frame()
         self.cadre_bouton.grid()
 
@@ -75,7 +77,10 @@ class FenetrePartie(Tk):
                                         command=self.ouvrir_reglements, padx=10, pady=10)
         self.bouton_reglements.grid(padx=10, pady=10, column=2, row=0)
 
-        self.liste_déplacement = []
+        self.bouton_deplacements = Button(self.cadre_bouton, text='Déplacements',
+                                          command=self.afficher_deplacements, padx=10, pady=10)
+        self.bouton_deplacements.grid(padx=10, pady=10, column=3, row=0)
+
 
     def nouvelle_partie(self):
         self.destroy()
@@ -110,6 +115,11 @@ class FenetrePartie(Tk):
 
         fenetre_reglements.mainloop()
 
+    def afficher_deplacements(self):
+        fenetre_deplacements = Tk()
+        texte_d = Label(fenetre_deplacements, text=self.texte_deplacements, anchor='e', padx=10, pady=10)
+        texte_d.grid()
+        fenetre_deplacements.mainloop()
 
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier.
@@ -133,6 +143,10 @@ class FenetrePartie(Tk):
 
             self.partie.couple_de_position = self.position_selectionnee, self.position_cible_graphique
             self.partie.tour()
+
+            self.texte_deplacements += 'Déplacement du joueur {}, de {} vers {}. \n'.format(str(
+                self.partie.couleur_joueur_courant), str(self.position_selectionnee),
+                str(self.position_cible_graphique))
 
             # On affiche le damier mis a jour.
             self.canvas_damier.actualiser()
