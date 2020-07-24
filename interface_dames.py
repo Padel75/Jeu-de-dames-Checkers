@@ -91,9 +91,9 @@ class FenetrePartie(Tk):
                                          command=self.sauvegarder_partie, padx=10, pady=10)
         self.bouton_sauvegarder.grid(padx=10, pady=10, column=0, row=1)
 
-        # Création du bouton 'Sauvegarder'
+        # Création du bouton 'Charger'
         #self.bouton_charger = Button(self.cadre_bouton, text='Charger',
-        #                                 command=self.charger_partie(), padx=10, pady=10)
+         #                                command=self.charger_partie(), padx=10, pady=10)
         #self.bouton_charger.grid(padx=10, pady=10, column=2, row=1)
 
     def nouvelle_partie(self):
@@ -161,19 +161,15 @@ class FenetrePartie(Tk):
 
     def sauvegarder_partie(self):
         # demander par une fenêtre si l'utilisateur veut écraser une éventuelle sauvegarde précédente.
-        if self.existe('sauvegarde'):
-            remove('sauvegarde')
+        if self.existe('sauvegarde.txt'):
+            remove('sauvegarde.txt')
         else:
-            fichier = open('sauvegarde', 'w')
+            fichier = open('sauvegarde.txt', 'w')
             print(self.partie.damier.cases, file=fichier)
             fichier.close()
 
- #   def charger_partie(self):
-  #      if self.existe('sauvegarde'):
-   #         fichier = open('sauvegarde', 'r')
-    #        self.partie.damier.cases = fichier
-     #       fichier.close()
-
+    def charger_partie(self):
+        if self.existe('sauvegarde.txt'):
 
 
     def selectionner(self, event):
@@ -293,8 +289,8 @@ class Fenetredimension(Tk):
 
 if __name__ == '__main__':
     # Ouverture de la fenetre de dimensionnement de la partie
-    fenetre_dimensionnement = Fenetredimension()
-    fenetre_dimensionnement.mainloop()
+    #fenetre_dimensionnement = Fenetredimension()
+    #fenetre_dimensionnement.mainloop()
 
     # Ouverture de la fenetre du jeu
     fenetre = FenetrePartie()
