@@ -280,16 +280,18 @@ class Fenetredimension(Tk):
         # Appel du constructeur de la classe de base (Tk)
         super().__init__()
         # Création de combobox dimensions damier
-        fenetre_dim = Label()
+        fenetre_dim = Tk()
 
+        self.texte = Label(fenetre_dim, text='Quel est la taille du damier que vous désirez')
+        self.texte.grid()
         self.dimension_lignes_damier = ttk.Combobox(fenetre_dim, text='Nombre de lignes du damier', values=('5', '6', '7', '8', '9', '10', '11', '12'))
         self.dimension_lignes_damier.grid()
         self.dimension_lignes_damier.current(3)
         self.dimension_colonne_damier = ttk.Combobox(fenetre_dim, text='Nombre de colonne du damier', values=('5', '6', '7', '8', '9', '10', '11', '12'))
         self.dimension_colonne_damier.grid()
         self.dimension_colonne_damier.current(3)
-
-
+        self.bouton_debut_partie = Button(fenetre_dim, text='Débuter la partie', command=fenetre_dim.quit)
+        self.bouton_debut_partie.grid()
 
 
 if __name__ == '__main__':
