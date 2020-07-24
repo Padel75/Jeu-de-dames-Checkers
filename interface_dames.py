@@ -21,7 +21,6 @@ class FenetrePartie(Tk):
         """Constructeur de la classe FenetrePartie. On initialise une partie en utilisant la classe Partie du TP3 et
         on dispose les «widgets» dans la fenêtre.
         """
-
         # Appel du constructeur de la classe de base (Tk)
         super().__init__()
 
@@ -59,6 +58,7 @@ class FenetrePartie(Tk):
 
         self.texte_deplacements = 'Liste des déplacements, du plus récent au plus ancien: \n'
 
+        #Cadre des boutons
         self.cadre_bouton = Frame()
         self.cadre_bouton.grid()
 
