@@ -95,7 +95,12 @@ class FenetrePartie(Tk):
         # Création du bouton 'Charger'
         self.bouton_charger = Button(self.cadre_bouton, text='Charger',
                                          command=self.charger_partie, padx=10, pady=10)
-        self.bouton_charger.grid(padx=10, pady=10, column=2, row=1)
+        self.bouton_charger.grid(padx=10, pady=10, column=1, row=1)
+
+        # Création du bouton 'Tricher'
+        self.bouton_triche = Button(self.cadre_bouton, text="Tricher",
+                                        command=self.ouvrir_triches, padx=10, pady=10)
+        self.bouton_triche.grid(padx=10, pady=10, column=2, row=1)
 
         # Dimension du damier
         #self.partie.damier.n_colonnes = self.Fenetredimension.dimension_colonne_damier
@@ -139,8 +144,6 @@ class FenetrePartie(Tk):
         texte_d = Label(fenetre_deplacements, text=self.texte_deplacements, anchor='e', padx=10, pady=10)
         texte_d.grid()
         fenetre_deplacements.mainloop()
-
-
 
     def existe(self, nom_de_fichier):
         """
@@ -227,7 +230,58 @@ class FenetrePartie(Tk):
             self.partie.damier.cases = dico
             self.canvas_damier.actualiser()
         else:
-             print('ce fichier n\'existe pas')
+            fenetre_alerte = Tk()
+            texte = Label(fenetre_alerte, text='Aucune sauvegarde n\'est disponible', anchor='e')
+            texte.grid(padx=10, pady=10)
+            bouton_quitter = Button(fenetre_alerte, text="Ok", command=fenetre_alerte.destroy, padx=10, pady=10)
+            bouton_quitter.grid(padx=10, pady=10)
+            fenetre_alerte.mainloop()
+
+    def ouvrir_triches(self):
+        fenetre_triche = Tk()
+        bouton_dame_tous = Button(fenetre_triche, text='Toutes les pièces \n deviennent des dames',
+                                  command=self.pion_en_dames_tous, padx=10, pady=10)
+        bouton_dame_tous.grid(column=0, row=0, padx=10, pady=10)
+
+        bouton_dame_blanc = Button(fenetre_triche, text='Les pièces blanches \n deviennent des dames',
+                                   command=self.pion_en_dames_blanc, padx=10, pady=10)
+        bouton_dame_blanc.grid(column=1, row=0, padx=10, pady=10)
+
+        bouton_dame_noir = Button(fenetre_triche, text='Les pièces noires \n deviennent des dames.',
+                                  command=self.pion_en_dames_noir, padx=10, pady=10)
+        bouton_dame_noir.grid(column=2, row=0, padx=10, pady=10)
+
+        bouton_quitter = Button(fenetre_triche, text='Terminer', command = fenetre_triche.destroy, padx=10, pady=10)
+        bouton_quitter.grid(column=1, row=1, padx=10, pady=10)
+
+        fenetre_triche.mainloop()
+
+    def pion_en_dames_noir(self):
+
+        for position in self.partie.damier.cases:
+            piece = self.partie.damier.recuperer_piece_a_position(position)
+            if piece.couleur == 'noir':
+                piece.promouvoir()
+
+        self.canvas_damier.actualiser()
+
+    def pion_en_dames_tous(self):
+
+        for position in self.partie.damier.cases:
+            piece = self.partie.damier.recuperer_piece_a_position(position)
+            piece.promouvoir()
+
+        self.canvas_damier.actualiser()
+
+    def pion_en_dames_blanc(self):
+
+        for position in self.partie.damier.cases:
+            piece = self.partie.damier.recuperer_piece_a_position(position)
+            if piece.couleur == 'blanc':
+                piece.promouvoir()
+
+        self.canvas_damier.actualiser()
+
 
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier.
