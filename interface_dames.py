@@ -176,9 +176,6 @@ class FenetrePartie(Tk):
             unfichier = open('sauvegarde.txt', 'r')
             dicostr = unfichier.readline()
             unfichier.close()
-            # Point test:
-            print(type(dicostr))
-            print(dicostr)
 
             dico = {}
             clef = ''
@@ -227,15 +224,10 @@ class FenetrePartie(Tk):
                 else:
                     clef += i
 
-            print(valeur)
-            print(dicostr)
-            print(dico)
             self.partie.damier.cases = dico
             self.canvas_damier.actualiser()
         else:
              print('ce fichier n\'existe pas')
-
-
 
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier.
