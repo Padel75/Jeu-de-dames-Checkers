@@ -279,7 +279,7 @@ class Damier:
             return 'erreur'
 
         # Si la pièce est rendue au bout, elle est promue reine!
-        if (position_cible.ligne == 0 and piece.est_blanche()) or (position_cible.ligne == 7 and piece.est_noire()):
+        if (position_cible.ligne == 0 and piece.est_blanche()) or (position_cible.ligne == (self.n_lignes - 1) and piece.est_noire()):
             piece.promouvoir()
 
         return resultat
