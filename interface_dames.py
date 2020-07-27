@@ -552,14 +552,14 @@ class Fenetredimension(Tk):
 
         # Création des combobox:
         self.dimension_lignes_damier = ttk.Combobox(self, text='Nombre de lignes du damier',
-                                                    values=('7', '8', '9', '10', '11', '12'))
+                                                    values=('8','10', '12', '14', '16'))
         self.dimension_lignes_damier.grid(padx=10, pady=10, row=2)
-        self.dimension_lignes_damier.current(1)
+        self.dimension_lignes_damier.current(0)
 
         self.dimension_colonne_damier = ttk.Combobox(self, text='Nombre de colonne du damier',
-                                                     values=('7', '8', '9', '10', '11', '12'))
+                                                     values=('8', '10', '12', '14', '16'))
         self.dimension_colonne_damier.grid(padx=10, pady=10, row=4)
-        self.dimension_colonne_damier.current(1)
+        self.dimension_colonne_damier.current(0)
 
         # Affectation des valeurs sélectionnées aux variables correspodantes:
         self.nbr_ligne_partie = int(self.dimension_lignes_damier.get())
@@ -621,8 +621,11 @@ class Fenetredimension(Tk):
         Fonction générant un damier aléatoire.
         """
         # Création des dimensions:
-        nbr_aleat_colonne = randint(7, 12)
-        nbr_aleat_ligne = randint(7, 12)
+        liste = ('8', '10', '12', '14', '16')
+        aleat_col = randint(0, 4)
+        aleat_ligne = randint(0, 4)
+        nbr_aleat_colonne = int(liste[aleat_col])
+        nbr_aleat_ligne = int(liste[aleat_ligne])
 
         # Initialisation d'un dictionnaire de pièce:
         dico_aleat = {}

@@ -1,6 +1,0 @@
-Ajouter une zone de message à coté du damier, mais dans la meme fenetre.
-
-Il y a deja une gestion des messages d'erreurs dans interface_dame.
-
-Gerer les clics ainsi:
--Si une pièce est sélectionner, on doit pouvoir resélectionner une nouvelle pièce de la même couleur sans erreur 'position cible invalide'
