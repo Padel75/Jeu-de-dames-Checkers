@@ -34,7 +34,6 @@ class FenetrePartie(Tk):
         bouton_triche (Button): Un bouton pour ouvrir les options de triches dans une nouvelle fenêtre.
         fenetre_alarme (Tk): Une fenêtre affichant un message d'alarme au joueur.
     """
-
     def __init__(self):
         """Constructeur de la classe FenetrePartie. On initialise une partie en utilisant la classe Partie du TP3 et
         on dispose les «widgets» dans la fenêtre.
@@ -155,6 +154,8 @@ class FenetrePartie(Tk):
                                                " prendre des pièces adverses avec la même pièce, il doit\n"
                                                " le faire.", anchor='e')
         texte.grid()
+        bouton_quit = Button(fenetre_reglements, padx=10, pady=10, command=fenetre_reglements.destroy)
+        bouton_quit.grid()
         fenetre_reglements.mainloop()
 
     def afficher_deplacements(self):
@@ -641,27 +642,27 @@ class Fenetredimension(Tk):
         # Création des pièces blanches:
         i = 0
         while i <= nb_piece_blanches:
-            x = randint(0, nbr_aleat_colonne - 1)
-            y = randint(0, nbr_aleat_ligne - 1)
+            x = randint(0, nbr_aleat_colonne - 2)
+            y = randint(0, nbr_aleat_ligne - 2)
             bool_type = randint(0, 1)
 
-            if bool == 1:
-                dico_aleat[Position(x, y)] = Piece('blanc', 'dame')
+            if bool_type == 1:
+                dico_aleat[Position(y, x)] = Piece('blanc', 'dame')
             else:
-                dico_aleat[Position(x, y)] = Piece('blanc', 'pion')
+                dico_aleat[Position(y, x)] = Piece('blanc', 'pion')
             i += 1
 
         # Création des pièces noires:
         j = 0
         while j <= nb_piece_blanches:
-            x = randint(0, nbr_aleat_colonne - 1)
-            y = randint(0, nbr_aleat_ligne - 1)
+            x = randint(0, nbr_aleat_colonne - 2)
+            y = randint(0, nbr_aleat_ligne - 2)
             bool_type = randint(0, 1)
 
-            if bool == 1:
-                dico_aleat[Position(x, y)] = Piece('noir', 'dame')
+            if bool_type == 1:
+                dico_aleat[Position(y, x)] = Piece('noir', 'dame')
             else:
-                dico_aleat[Position(x, y)] = Piece('noir', 'pion')
+                dico_aleat[Position(y, x)] = Piece('noir', 'pion')
             j += 1
 
         # Créatio  de la nouvelle partie:
