@@ -27,7 +27,7 @@ def existe(nom_de_fichier):
         f = open(nom_de_fichier, 'r')
         f.close()
         return True
-    except NameError:  # En cas d'échec, retour de False
+    except Exception:  # En cas d'échec, retour de False
         return False
 
 
@@ -61,7 +61,7 @@ def ouvrir_reglements():
                                            " prendre des pièces adverses avec la même pièce, il doit\n"
                                            " le faire.", anchor='e')
     texte.grid()
-    bouton_quit = Button(fenetre_reglements, padx=10, pady=10, command=fenetre_reglements.destroy)
+    bouton_quit = Button(fenetre_reglements, padx=10, pady=10, command=fenetre_reglements.destroy, text='Ok')
     bouton_quit.grid()
     fenetre_reglements.mainloop()
 
@@ -92,7 +92,8 @@ class FenetrePartie(Tk):
         fenetre_alarme (Tk): Une fenêtre affichant un message d'alarme au joueur.
     """
     def __init__(self):
-        """Constructeur de la classe FenetrePartie. On initialise une partie en utilisant la classe Partie du TP3 et
+        """
+        Constructeur de la classe FenetrePartie. On initialise une partie en utilisant la classe Partie du TP3 et
         on dispose les «widgets» dans la fenêtre.
         """
         # Appel du constructeur de la classe de base (Tk):
@@ -134,8 +135,8 @@ class FenetrePartie(Tk):
         self.texte_deplacements = 'Liste des déplacements, du plus récent au plus ancien: \n'
 
         # Ajout du cadre des boutons:
-        self.cadre_bouton = Frame()
-        self.cadre_bouton.grid()
+        self.cadre_bouton = Frame(self)
+        self.cadre_bouton.grid(padx=10, pady=10)
 
         # Création du bouton 'Nouvelle partie':
         self.bouton_nouvelle_partie = Button(self.cadre_bouton, text="Nouvelle partie",
@@ -143,7 +144,7 @@ class FenetrePartie(Tk):
         self.bouton_nouvelle_partie.grid(padx=10, pady=10, column=0, row=0)
 
         # Création du bouton 'quitter':
-        self.bouton_Quitter = Button(self.cadre_bouton, text="Quitter", command=self.quit, padx=10, pady=10)
+        self.bouton_Quitter = Button(self.cadre_bouton, text="Quitter", command=self.destroy, padx=10, pady=10)
         self.bouton_Quitter.grid(padx=10, pady=10, column=1, row=0)
 
         # Création du bourron 'Règlements':
@@ -205,6 +206,14 @@ class FenetrePartie(Tk):
         # Création de la sauvegarde:
         fichier = open('sauvegarde.txt', 'w')
         print(self.partie.damier.cases, file=fichier)
+        fichier.close()
+
+        fichier = open('sauvegarde.txt', 'w')
+        print(self.texte_deplacements, file=fichier)
+        fichier.close()
+
+        fichier = open('sauvegarde.txt', 'w')
+        print('{}{}'.format(self.partie.damier.n_lignes, self.partie.damier.n_colonnes))
         fichier.close()
 
         # Fermeture de la fenêtre d'alarme générée par la fonction self.sauvegarder_partie:
@@ -668,11 +677,14 @@ class Fenetredimension(Tk):
         nouvelle_partie.partie.damier.n_lignes = nbr_aleat_ligne
         nouvelle_partie.partie.damier.cases = dico_aleat
 
-        # Actualisation de l'affichage:
-        nouvelle_partie.canvas_damier.actualiser()
 
         # Destruction de la fenêtre d'options:
         self.destroy()
+
+        # Actualisation de l'affichage:
+        nouvelle_partie.canvas_damier.actualiser()
+        nouvelle_partie.mainloop()
+
 
 
 if __name__ == '__main__':
@@ -681,5 +693,5 @@ if __name__ == '__main__':
     fenetre_dimensionnement.mainloop()
 
     # Ouverture de la fenetre du jeu
-    # fenetre = FenetrePartie()
-    # fenetre.mainloop()
+    #fenetre = FenetrePartie()
+    #fenetre.mainloop()
