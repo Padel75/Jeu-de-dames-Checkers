@@ -1,12 +1,12 @@
 # Auteurs: Ariane Fiset et Pascal de Le Rue
 
-from tkinter import Tk, Label, NSEW, Button, Canvas, Frame, ttk
+from tkinter import Tk, Label, NSEW, Button, Frame, ttk
 from canvas_damier import CanvasDamier
 from partie import Partie
 from position import Position
-from os import getcwd, remove
+from os import remove
 from piece import Piece
-
+from random import randint
 
 
 class FenetrePartie(Tk):
@@ -34,6 +34,7 @@ class FenetrePartie(Tk):
         bouton_triche (Button): Un bouton pour ouvrir les options de triches dans une nouvelle fenêtre.
         fenetre_alarme (Tk): Une fenêtre affichant un message d'alarme au joueur.
     """
+
     def __init__(self):
         """Constructeur de la classe FenetrePartie. On initialise une partie en utilisant la classe Partie du TP3 et
         on dispose les «widgets» dans la fenêtre.
@@ -85,7 +86,6 @@ class FenetrePartie(Tk):
                                              command=self.nouvelle_partie, padx=10, pady=10)
         self.bouton_nouvelle_partie.grid(padx=10, pady=10, column=0, row=0)
 
-
         # Création du bouton 'quitter':
         self.bouton_Quitter = Button(self.cadre_bouton, text="Quitter", command=self.quit, padx=10, pady=10)
         self.bouton_Quitter.grid(padx=10, pady=10, column=1, row=0)
@@ -107,12 +107,12 @@ class FenetrePartie(Tk):
 
         # Création du bouton 'Charger':
         self.bouton_charger = Button(self.cadre_bouton, text='Charger',
-                                         command=self.charger_partie, padx=10, pady=10)
+                                     command=self.charger_partie, padx=10, pady=10)
         self.bouton_charger.grid(padx=10, pady=10, column=1, row=1)
 
         # Création du bouton 'Tricher':
         self.bouton_triche = Button(self.cadre_bouton, text="Tricher",
-                                        command=self.ouvrir_triches, padx=10, pady=10)
+                                    command=self.ouvrir_triches, padx=10, pady=10)
         self.bouton_triche.grid(padx=10, pady=10, column=2, row=1)
 
         # Initialisation de la variable 'fenetre_alarme':
@@ -123,7 +123,7 @@ class FenetrePartie(Tk):
         Fonction supprimant la fenêtre de partie courante et relançant une nouvelle partie.
         """
         self.destroy()
-        Nouvelle_partie = Fenetredimension()
+        Fenetredimension()
 
     def ouvrir_reglements(self):
         """
@@ -214,7 +214,9 @@ class FenetrePartie(Tk):
         self.fenetre_alarme = Tk()
 
         # Ajout d'une étiquette contenant le texte voulue:
-        texte_alarme = Label(self.fenetre_alarme, text='Si vous sauvegarder maintenant, la sauvegarde précédente sera écrasée. \n Voulez-vous continuer?', padx=10, pady=10)
+        texte_alarme = Label(self.fenetre_alarme,
+                             text='Si vous sauvegarder maintenant, la sauvegarde précédente sera écrasée. \n Voulez-vous continuer?',
+                             padx=10, pady=10)
         texte_alarme.grid(row=0, column=1, padx=10, pady=10)
 
         # Création du bouton 'oui':
@@ -247,11 +249,10 @@ class FenetrePartie(Tk):
             for i in dicostr:
                 if i == '{' or i == '}' or i == ' ' or i == ',':  # Les caractères à ignorer.
                     pass
-                elif i == 'o' or i == 'O' or i == 'x' or i =='X':  # Les caratères représentant les types de pièces.
+                elif i == 'o' or i == 'O' or i == 'x' or i == 'X':  # Les caratères représentant les types de pièces.
 
                     # Gestion des valeurs du dictionnaire:
                     if i == 'o':
-
                         valeur = Piece("blanc", "pion")  # La bonne valeur est associée à la variable 'valeur'.
                         dico[clef_p] = valeur  # Ajout de l'élément clé-valeur au dictionnaire 'dico'.
 
@@ -343,7 +344,7 @@ class FenetrePartie(Tk):
         bouton_dame_noir.grid(column=2, row=0, padx=10, pady=10)
 
         # Création du bouton permettant de quitter la fenêtre:
-        bouton_quitter = Button(fenetre_triche, text='Terminer', command = fenetre_triche.destroy, padx=10, pady=10)
+        bouton_quitter = Button(fenetre_triche, text='Terminer', command=fenetre_triche.destroy, padx=10, pady=10)
         bouton_quitter.grid(column=1, row=1, padx=10, pady=10)
 
         fenetre_triche.mainloop()
@@ -392,7 +393,6 @@ class FenetrePartie(Tk):
         # Actualisation du damier:
         self.canvas_damier.actualiser()
 
-
     def selectionner(self, event):
         """Méthode qui gère le clic de souris sur le damier, exécute la gestion des tours et retourne un message
         pertinent en cas de victoire.
@@ -405,17 +405,18 @@ class FenetrePartie(Tk):
         if self.bool_piece_selectionnee:
 
             # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
-            ligne_deplacement = event.y//self.canvas_damier.n_pixels_par_case
-            colonne_deplacement = event.x//self.canvas_damier.n_pixels_par_case
+            ligne_deplacement = event.y // self.canvas_damier.n_pixels_par_case
+            colonne_deplacement = event.x // self.canvas_damier.n_pixels_par_case
 
             # Vérification de la validité de la position cible désignée:
             if self.partie.position_cible_valide(Position(ligne_deplacement, colonne_deplacement))[0]:
                 # Si la position cible est valide, elle est attribuée à la variable 'self.position_cible_graphique:
                 self.position_cible_graphique = Position(ligne_deplacement, colonne_deplacement)
 
-            else: # Affichage d'un message d'erreur pertinent en cas de position non valide:
+            else:  # Affichage d'un message d'erreur pertinent en cas de position non valide:
                 self.messages['foreground'] = 'red'
-                self.messages['text'] = self.partie.position_cible_valide(Position(ligne_deplacement, colonne_deplacement))[1]
+                self.messages['text'] = \
+                self.partie.position_cible_valide(Position(ligne_deplacement, colonne_deplacement))[1]
 
             # Attribution des positions sélectionnées par clic à la variable pertinente de la classe partie:
             self.partie.couple_de_position = self.position_selectionnee, self.position_cible_graphique
@@ -473,7 +474,7 @@ class FenetrePartie(Tk):
                     # Vérification si la pièce sélectionnée peut faire une prise:
                     if self.partie.damier.piece_peut_faire_une_prise(Position(ligne, colonne)):
                         # Vérification si le joueur à déjà pris une pièce et doit continuer à prendre avec celle-ci:
-                        if self.partie.position_source_forcee is not None\
+                        if self.partie.position_source_forcee is not None \
                                 and self.partie.position_source_forcee == Position(ligne, colonne):
                             # Si toutes les conditions sont réunies, les variables spnt mises à jour:
                             self.position_selectionnee = Position(ligne, colonne)
@@ -487,7 +488,7 @@ class FenetrePartie(Tk):
                         # Affichage d'un message d'erreur pertinent en cas d'erreur et arrêt de la méthode:
                         else:
                             self.messages['foreground'] = 'red'
-                            self.messages['text'] = 'Erreur: Vous devez sélectionner la piece {}'\
+                            self.messages['text'] = 'Erreur: Vous devez sélectionner la piece {}' \
                                 .format(str(self.partie.position_source_forcee))
                             return  # Arrêt de la méthode
 
@@ -519,6 +520,7 @@ class FenetrePartie(Tk):
             # On affiche le damier mis a jour.
             self.canvas_damier.actualiser()
 
+
 class Fenetredimension(Tk):
     """
     Interface graphique du dimensionnement de la partie de dame.
@@ -531,6 +533,7 @@ class Fenetredimension(Tk):
            nbr_colonne_partie (int): le nombre de colonnes sélectionné.
            bouton_debut_partie (Button): un bouton pour lancer la partie.
     """
+
     def __init__(self):
         """
         Constructeur de la classe Fenetredimension.
@@ -541,34 +544,42 @@ class Fenetredimension(Tk):
         # Création de combobox dimensions damier
         self.title('Dimensions du jeu')
 
+        # Création des étiquette informative:
         self.texte = Label(self, text='Quel est la taille du damier que vous désirez', padx=10, pady=10)
         self.texte.grid(padx=10, pady=10, row=0)
 
         self.texte1 = Label(self, text='Nombre de lignes:', padx=10)
         self.texte1.grid(padx=10, row=1)
 
-        self.dimension_lignes_damier = ttk.Combobox(self, text='Nombre de lignes du damier',
-                                                values=('7', '8', '9', '10', '11', '12'))
-        self.dimension_lignes_damier.grid(padx=10, pady=10, row=2)
-        self.dimension_lignes_damier.current(1)
-
-        self.nbr_ligne_partie = int(self.dimension_lignes_damier.get())
-
         self.texte2 = Label(self, text='Nombre de colonnes:', padx=10)
         self.texte2.grid(padx=10, row=3)
 
+        # Création des combobox:
+        self.dimension_lignes_damier = ttk.Combobox(self, text='Nombre de lignes du damier',
+                                                    values=('7', '8', '9', '10', '11', '12'))
+        self.dimension_lignes_damier.grid(padx=10, pady=10, row=2)
+        self.dimension_lignes_damier.current(1)
+
         self.dimension_colonne_damier = ttk.Combobox(self, text='Nombre de colonne du damier',
-                                                values=('7', '8', '9', '10', '11', '12'))
+                                                     values=('7', '8', '9', '10', '11', '12'))
         self.dimension_colonne_damier.grid(padx=10, pady=10, row=4)
         self.dimension_colonne_damier.current(1)
 
+        # Affectation des valeurs sélectionnées aux variables correspodantes:
+        self.nbr_ligne_partie = int(self.dimension_lignes_damier.get())
         self.nbr_colonne_partie = int(self.dimension_colonne_damier.get())
 
+        # Création du bouton lançant la partie:
         self.bouton_debut_partie = Button(self, text='Débuter la partie',
-                                          command=self.commande_bouton, padx=10, pady=10)
-        self.bouton_debut_partie.grid(padx=10, pady=10, row=5)
+                                          command=self.commande_bouton_partie, padx=10, pady=10)
+        self.bouton_debut_partie.grid(padx=10, pady=10, row=5, column=0)
 
-    def commande_bouton(self):
+        # Création du bouton de damier aléatoire:
+        self.bouton_damier_aleatoire = Button(self, text='Générer un damier aléatoire',
+                                              command=self.commande_bouton_damier_aleatoire, padx=10, pady=10)
+        self.bouton_damier_aleatoire.grid(padx=10, pady=10, row=5, column=1)
+
+    def commande_bouton_partie(self):
         """
         Fonction de commande du bouton bouton_debut_partie
         """
@@ -583,15 +594,15 @@ class Fenetredimension(Tk):
 
             if (i % 2) == 0:
 
-                dico_pst[Position(self.nbr_ligne_partie-1, i)] = Piece("blanc", "pion")
-                dico_pst[Position(self.nbr_ligne_partie-3, i)] = Piece("blanc", "pion")
+                dico_pst[Position(self.nbr_ligne_partie - 1, i)] = Piece("blanc", "pion")
+                dico_pst[Position(self.nbr_ligne_partie - 3, i)] = Piece("blanc", "pion")
 
                 dico_pst[Position(1, i)] = Piece("noir", "pion")
 
 
             else:
 
-                dico_pst[Position(self.nbr_ligne_partie-2, i)] = Piece("blanc", "pion")
+                dico_pst[Position(self.nbr_ligne_partie - 2, i)] = Piece("blanc", "pion")
 
                 dico_pst[Position(0, i)] = Piece("noir", "pion")
                 dico_pst[Position(2, i)] = Piece("noir", "pion")
@@ -610,13 +621,69 @@ class Fenetredimension(Tk):
         # Destruction de la fenêtre d'options:
         self.destroy()
 
+    def commande_bouton_damier_aleatoire(self):
+        """
+        Fonction générant un damier aléatoire.
+        """
+        # Création des dimensions:
+        nbr_aleat_colonne = randint(7, 12)
+        nbr_aleat_ligne = randint(7, 12)
+
+        # Initialisation d'un dictionnaire de pièce:
+        dico_aleat = {}
+
+        # Calcul du nombre maximal de pièce d'une même couleur pouvant être sur le plateau:
+        max_piece = (nbr_aleat_colonne // 2) * 3 + (nbr_aleat_colonne % 2) * 2
+
+        nb_piece_blanches = randint(1, max_piece)
+        nb_piece_noires = randint(1, max_piece)
+
+        # Création des pièces blanches:
+        i = 0
+        while i <= nb_piece_blanches:
+            x = randint(0, nbr_aleat_colonne - 1)
+            y = randint(0, nbr_aleat_ligne - 1)
+            bool_type = randint(0, 1)
+
+            if bool == 1:
+                dico_aleat[Position(x, y)] = Piece('blanc', 'dame')
+            else:
+                dico_aleat[Position(x, y)] = Piece('blanc', 'pion')
+            i += 1
+
+        # Création des pièces noires:
+        j = 0
+        while j <= nb_piece_blanches:
+            x = randint(0, nbr_aleat_colonne - 1)
+            y = randint(0, nbr_aleat_ligne - 1)
+            bool_type = randint(0, 1)
+
+            if bool == 1:
+                dico_aleat[Position(x, y)] = Piece('noir', 'dame')
+            else:
+                dico_aleat[Position(x, y)] = Piece('noir', 'pion')
+            j += 1
+
+        # Créatio  de la nouvelle partie:
+        nouvelle_partie = FenetrePartie()
+
+        # Mise à jour des paramètres:
+        nouvelle_partie.partie.damier.n_colonnes = nbr_aleat_colonne
+        nouvelle_partie.partie.damier.n_lignes = nbr_aleat_ligne
+        nouvelle_partie.partie.damier.cases = dico_aleat
+
+        # Actualisation de l'affichage:
+        nouvelle_partie.canvas_damier.actualiser()
+
+        # Destruction de la fenêtre d'options:
+        self.destroy()
+
 
 if __name__ == '__main__':
-
     # Ouverture de la fenetre de dimensionnement de la partie
     fenetre_dimensionnement = Fenetredimension()
     fenetre_dimensionnement.mainloop()
 
     # Ouverture de la fenetre du jeu
-    #fenetre = FenetrePartie()
-    #fenetre.mainloop()
+    # fenetre = FenetrePartie()
+    # fenetre.mainloop()
