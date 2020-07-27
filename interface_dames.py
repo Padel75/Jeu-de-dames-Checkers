@@ -455,7 +455,7 @@ class FenetrePartie(Tk):
         # Gestion du clic de position source:
         if not self.bool_piece_selectionnee:
 
-            # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case.
+            # On trouve le numéro de ligne/colonne en divisant les positions en y/x par le nombre de pixels par case:
             ligne = event.y // self.canvas_damier.n_pixels_par_case
             colonne = event.x // self.canvas_damier.n_pixels_par_case
 
@@ -667,7 +667,6 @@ class Fenetredimension(Tk):
 
         # Actualisation de l'affichage:
         nouvelle_partie.canvas_damier.actualiser()
-        nouvelle_partie.canvas_damier.redimensionner(event)
 
         # Destruction de la fenêtre d'options:
         self.destroy()
