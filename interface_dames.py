@@ -552,7 +552,7 @@ class Fenetredimension(Tk):
 
         # Création des combobox:
         self.dimension_lignes_damier = ttk.Combobox(self, text='Nombre de lignes du damier',
-                                                    values=('8','10', '12', '14', '16'))
+                                                    values=('8', '10', '12', '14', '16'))
         self.dimension_lignes_damier.grid(padx=10, pady=10, row=2)
         self.dimension_lignes_damier.current(0)
 
