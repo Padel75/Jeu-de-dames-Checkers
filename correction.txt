@@ -28,10 +28,13 @@ Fonctionnalités facultatives
 IMPORTANT:
 Indiquez ici la liste des fonctionnalités (avec leur numéro et nom) que vous avez implémentées. 
 
-- # 00 : Nom de la fonctionnalité
-- # 00 : Nom de la fonctionnalité
-- # 00 : Nom de la fonctionnalité
-- etc.
+- # 01 : Option de lire les règlements du jeu (2 pts).
+- # 05 : Affichage d'une liste des déplacements effectués (3 pts).
+- # 09 : Génération d'un damier aléatoire (5 pts).
+- # 14 : Mode triche (5 pts)
+- # 16 : Choix des dimensions du damier (5pts).
+- # 18 : Sauvegarde de la partie dans un fichier texte (5 pts).
+- # 19 : Charger la partie à partir d'un fichier texte (5 pts).
 
 Commentaires:
 
