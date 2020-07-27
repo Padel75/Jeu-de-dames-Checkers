@@ -122,7 +122,7 @@ class FenetrePartie(Tk):
         Fonction supprimant la fenêtre de partie courante et relançant une nouvelle partie.
         """
         self.destroy()
-        Fenetredimension()
+        FenetrePartie()
 
     def ouvrir_reglements(self):
         """
