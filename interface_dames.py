@@ -8,6 +8,7 @@ from os import remove
 from piece import Piece
 from random import randint
 
+
 # Création de fonctions utiles:
 
 def existe(nom_de_fichier):
@@ -208,14 +209,6 @@ class FenetrePartie(Tk):
         print(self.partie.damier.cases, file=fichier)
         fichier.close()
 
-        fichier = open('sauvegarde.txt', 'w')
-        print(self.texte_deplacements, file=fichier)
-        fichier.close()
-
-        fichier = open('sauvegarde.txt', 'w')
-        print('{}{}'.format(self.partie.damier.n_lignes, self.partie.damier.n_colonnes))
-        fichier.close()
-
         # Fermeture de la fenêtre d'alarme générée par la fonction self.sauvegarder_partie:
         self.fenetre_alarme.destroy()
 
@@ -253,6 +246,7 @@ class FenetrePartie(Tk):
             dicostr = unfichier.readline()
             unfichier.close()
 
+            # Gestion de la sauvegarde du dictionnaire:
             # initialisation des variables nécessaires:
             dico = {}  # Le dictionnaire récupéré.
             clef = ''  # La clé de dictionnaire récupérée sous format str.
@@ -310,9 +304,6 @@ class FenetrePartie(Tk):
 
             # Le dictionnaire définissant la partie est mis à jour par la sauvegarde:
             self.partie.damier.cases = dico
-
-            # Le damier est actualiser:
-            self.canvas_damier.actualiser()
 
         # Si la sauvegarde n'existe pas, l'utilisateur en est informé:
         else:
@@ -677,7 +668,6 @@ class Fenetredimension(Tk):
         nouvelle_partie.partie.damier.n_lignes = nbr_aleat_ligne
         nouvelle_partie.partie.damier.cases = dico_aleat
 
-
         # Destruction de la fenêtre d'options:
         self.destroy()
 
@@ -686,12 +676,11 @@ class Fenetredimension(Tk):
         nouvelle_partie.mainloop()
 
 
-
 if __name__ == '__main__':
     # Ouverture de la fenetre de dimensionnement de la partie
     fenetre_dimensionnement = Fenetredimension()
     fenetre_dimensionnement.mainloop()
 
     # Ouverture de la fenetre du jeu
-    #fenetre = FenetrePartie()
-    #fenetre.mainloop()
+    # fenetre = FenetrePartie()
+    # fenetre.mainloop()
