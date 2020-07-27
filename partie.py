@@ -199,9 +199,7 @@ class Partie:
                 print(" Doit prendre avec la pièce en position {}.".format(self.position_source_forcee))
         else:
             print("")
-
         self.position_source_selectionnee = None
-
 
     def jouer(self):
         """Démarre une partie. Tant que le joueur courant a des déplacements possibles (utilisez les méthodes
@@ -223,7 +221,6 @@ class Partie:
             return "blanc"
 
 
-
 if __name__ == "__main__":
     # Point d'entrée du programme. On initialise une nouvelle partie, et on appelle la méthode jouer().
     partie = Partie()
@@ -232,4 +229,3 @@ if __name__ == "__main__":
 
     print("------------------------------------------------------")
     print("Partie terminée! Le joueur gagnant est le joueur", gagnant)
-

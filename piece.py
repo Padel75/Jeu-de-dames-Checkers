@@ -1,5 +1,6 @@
 # Auteurs: Jean-Francis Roy et Pascal Germain
 
+
 class Piece:
     """Une pièce d'un jeu de dames.
 
