@@ -188,7 +188,7 @@ class FenetrePartie(Tk):
             f = open(nom_de_fichier, 'r')
             f.close()
             return True
-        except Exception:  # En cas d'échec, retour de False
+        except NameError:  # En cas d'échec, retour de False
             return False
 
     def fonction_de_sauvegarde(self):
@@ -216,7 +216,8 @@ class FenetrePartie(Tk):
 
         # Ajout d'une étiquette contenant le texte voulue:
         texte_alarme = Label(self.fenetre_alarme,
-                             text='Si vous sauvegarder maintenant, la sauvegarde précédente sera écrasée. \n Voulez-vous continuer?',
+                             text='Si vous sauvegarder maintenant, la sauvegarde précédente sera écrasée. '
+                                  '\n Voulez-vous continuer?',
                              padx=10, pady=10)
         texte_alarme.grid(row=0, column=1, padx=10, pady=10)
 
@@ -244,7 +245,6 @@ class FenetrePartie(Tk):
             dico = {}  # Le dictionnaire récupéré.
             clef = ''  # La clé de dictionnaire récupérée sous format str.
             clef_p = ''  # La clé de dictionnaire récupérée sous format Position.
-            valeur = ''  # La valeur associé à une clé de dictionnaire.
 
             # Parcours des éléments de la chaîne de caratères contenue dans le fichier .txt:
             for i in dicostr:
@@ -254,50 +254,42 @@ class FenetrePartie(Tk):
 
                     # Gestion des valeurs du dictionnaire:
                     if i == 'o':
-                        valeur = Piece("blanc", "pion")  # La bonne valeur est associée à la variable 'valeur'.
-                        dico[clef_p] = valeur  # Ajout de l'élément clé-valeur au dictionnaire 'dico'.
-
+                        dico[clef_p] = Piece("blanc", "pion")  # Ajout de l'élément clé-valeur au dictionnaire 'dico'.
                         # Réinitialisation des variables:
                         clef_p = ''
-                        valeur = ''
                         clef = ''
 
                     # Les mêmes étapes sont répétés pour les autres types de pièces:
                     if i == 'O':
-                        valeur = Piece("blanc", "dame")
-                        dico[clef_p] = valeur
+                        dico[clef_p] = Piece("blanc", "dame")
                         clef_p = ''
-                        valeur = ''
                         clef = ''
+
                     if i == 'x':
-                        valeur = Piece("noir", "pion")
-                        dico[clef_p] = valeur
+                        dico[clef_p] = Piece("noir", "pion")
                         clef_p = ''
-                        valeur = ''
                         clef = ''
+
                     if i == 'X':
-                        valeur = Piece("noir", "dame")
-                        dico[clef_p] = valeur
+                        dico[clef_p] = Piece("noir", "dame")
                         clef_p = ''
-                        valeur = ''
                         clef = ''
 
                 # Gestion des clefs du dictionnaire 'dico':
                 elif i == ':':  # Passage d'une clef à une valeur dans la variable dico_str:
                     tuple1 = ''  # Initialisation de la chaîne de caractère 'tuple1'
-                    for i in clef:  # Parcours des caractères de la chaîne de caractère 'clef'.
+                    for j in clef:  # Parcours des caractères de la chaîne de caractère 'clef'.
                         # Si le caractère peut être un entier, il est ajouter à tuple1:
                         try:
-                            int(i)
-                            tuple1 += i
-                        except Exception:
+                            int(j)
+                            tuple1 += j
+                        except ValueError:
                             pass
 
                     # La variable 'clef_p' reçoit la bonne valeur:
                     clef_p = Position(int(tuple1[0]), int(tuple1[1]))
 
                     # Réinitialisation des variables:
-                    tuple1 = ''
                     clef = ''
 
                 # Dans les autres cas, 'clef' continie de stocker les caratères:
@@ -417,7 +409,7 @@ class FenetrePartie(Tk):
             else:  # Affichage d'un message d'erreur pertinent en cas de position non valide:
                 self.messages['foreground'] = 'red'
                 self.messages['text'] = \
-                self.partie.position_cible_valide(Position(ligne_deplacement, colonne_deplacement))[1]
+                    self.partie.position_cible_valide(Position(ligne_deplacement, colonne_deplacement))[1]
 
             # Attribution des positions sélectionnées par clic à la variable pertinente de la classe partie:
             self.partie.couple_de_position = self.position_selectionnee, self.position_cible_graphique
@@ -600,7 +592,6 @@ class Fenetredimension(Tk):
 
                 dico_pst[Position(1, i)] = Piece("noir", "pion")
 
-
             else:
 
                 dico_pst[Position(self.nbr_ligne_partie - 2, i)] = Piece("blanc", "pion")
@@ -645,27 +636,28 @@ class Fenetredimension(Tk):
             x = randint(0, nbr_aleat_colonne - 2)
             y = randint(0, nbr_aleat_ligne - 2)
             bool_type = randint(0, 1)
-
-            if bool_type == 1:
-                dico_aleat[Position(y, x)] = Piece('blanc', 'dame')
-            else:
-                dico_aleat[Position(y, x)] = Piece('blanc', 'pion')
+            if Position(y, x) not in dico_aleat:
+                if bool_type == 1:
+                    dico_aleat[Position(y, x)] = Piece('blanc', 'dame')
+                else:
+                    dico_aleat[Position(y, x)] = Piece('blanc', 'pion')
             i += 1
 
         # Création des pièces noires:
         j = 0
-        while j <= nb_piece_blanches:
+        while j <= nb_piece_noires:
             x = randint(0, nbr_aleat_colonne - 2)
             y = randint(0, nbr_aleat_ligne - 2)
             bool_type = randint(0, 1)
 
-            if bool_type == 1:
-                dico_aleat[Position(y, x)] = Piece('noir', 'dame')
-            else:
-                dico_aleat[Position(y, x)] = Piece('noir', 'pion')
+            if Position(y, x) not in dico_aleat:
+                if bool_type == 1:
+                    dico_aleat[Position(y, x)] = Piece('noir', 'dame')
+                else:
+                    dico_aleat[Position(y, x)] = Piece('noir', 'pion')
             j += 1
 
-        # Créatio  de la nouvelle partie:
+        # Création de la nouvelle partie:
         nouvelle_partie = FenetrePartie()
 
         # Mise à jour des paramètres:
@@ -675,6 +667,7 @@ class Fenetredimension(Tk):
 
         # Actualisation de l'affichage:
         nouvelle_partie.canvas_damier.actualiser()
+        nouvelle_partie.canvas_damier.redimensionner(event)
 
         # Destruction de la fenêtre d'options:
         self.destroy()
