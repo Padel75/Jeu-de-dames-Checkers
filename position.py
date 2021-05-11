@@ -1,4 +1,4 @@
-# Auteurs: Jean-Francis et Pascal Germain
+# Auteurs: Jean-Francis et Pascal Germain, complété par Ariane Fiset et Pascal de Le Rue
 
 class Position:
     """Une position à deux coordonnées: ligne et colonne. La convention utilisée est celle de la notation matricielle :
