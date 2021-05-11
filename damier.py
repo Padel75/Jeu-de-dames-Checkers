@@ -1,4 +1,4 @@
-# Auteurs: Jean-Francis et Pascal Germain
+# Auteurs: Jean-Francis et Pascal Germain, complété par Ariane Fiset et Pascal de Le Rue
 
 from piece import Piece
 from position import Position
